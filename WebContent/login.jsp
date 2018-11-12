@@ -16,9 +16,6 @@ form input{
 form {
 	margin-left: 200px;
 }
-#sub_img {
-	margin-left: 200px;
-}
 legend {
 	font-size: 3em;
 }
