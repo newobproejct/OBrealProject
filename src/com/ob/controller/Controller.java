@@ -26,6 +26,7 @@ import com.ob.command.LogoutCommand;
 import com.ob.command.MainCommand;
 import com.ob.command.MorequeCommand;
 import com.ob.command.MypageCommand;
+import com.ob.command.MypageModiActCommand;
 import com.ob.command.NoticeCommand;
 import com.ob.command.NoticeDelCommand;
 import com.ob.command.NoticeModiCommand;
@@ -146,6 +147,10 @@ public class Controller extends HttpServlet {
 			comm = new LogoutCommand();
 		} else if (type.equals("myPage")) {
 			comm = new MypageCommand();
+		} else if (type.equals("myPageModi")) {
+			comm = new CommonCommand(type);
+		} else if (type.equals("myPageModiAct")) {
+			comm = new MypageModiActCommand();
 		} 
 
 

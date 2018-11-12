@@ -1,7 +1,5 @@
 package com.ob.dao;
 
-import java.util.HashMap;
-import java.util.List; 
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +26,7 @@ public class DAO {
 	/* **** 로그인, 회원가입 **********************************************/
 	// 아이디값 조회
 	public static UserVO checkId(String account) {
-
 		return getSql().selectOne("checkId", account);
-
 	}
 	
 	//로그인 한 유저의 예약기록 전체 조회
@@ -38,12 +34,18 @@ public class DAO {
 		return getSql().selectList("getUserReservation", id);
 	}
 	
-
 	// 회원가입 insert
 	public static int checkJoin(UserVO vo) {
 		return getSql().insert("checkJoin", vo);
 	}
 
+	// 회원 정보 변경 페이지
+	public static int mypageUP(UserVO vo) {
+		int result = getSql().update("mypageUp", vo);
+		getSql().commit();
+		return result;
+	}
+	
 	/* *****************************************************************/
 
 	/* **** 게시판 공용 ***************************************************/

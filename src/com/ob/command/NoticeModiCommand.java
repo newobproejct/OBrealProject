@@ -19,7 +19,7 @@ public class NoticeModiCommand implements Command {
 		String date = request.getParameter("write_date");
 		String count = request.getParameter("read_count");
 		
-		System.out.println("id: " + id);
+//		System.out.println("id: " + id);
 		
 		String path = null;
 		

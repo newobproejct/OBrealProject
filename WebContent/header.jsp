@@ -80,7 +80,7 @@
 				</c:if>
 				<c:if test="${uservo!=null }">
 					<li id="myPage">
-					<div id="myPageDiv"><a href="#">마이페이지</a>
+					<div id="myPageDiv"><a href="controller?type=myPage">마이페이지</a>
 						<div id="myPageList">
 							<ul>
 								<li>내 정보변경</li>

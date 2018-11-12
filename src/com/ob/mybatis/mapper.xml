@@ -129,6 +129,17 @@
 		SELECT * FROM OBHOTEL_RESERVATION WHERE USER_ID=#{id}
 	</select>
 
+	<!-- 회원 정보 변경 -->
+	<update id="mypageUP" parameterType="com.ob.vo.UserVO">
+		UPDATE OBHOTEL_USER 
+		   SET ACCOUNT = #{account}, PASSWORD = #{password},
+		   	   NICKNAME = #{nickname}, BIRTHDAY = #{birthday},
+		   	   ZIPCODE = #{zipcode}, ADDRESS1 = #{address1},
+		   	   ADDRESS2 = #{address2}, EMAIL = #{email},
+		   	   E_CONFIRM = #{e_confirm}, TEL = #{tel}
+		 WHERE ID = #{id}
+	</update>
+
 	<!-- ****** 공지사항 ************************************************** -->
 	<select id="noticeTotalCount" resultType="int">
 		SELECT COUNT(ID) FROM
