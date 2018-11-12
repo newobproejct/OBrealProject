@@ -22,12 +22,55 @@ public class LoginCheckCommand implements Command {
 		
 		String path="";
 		
-		System.out.println("입력된 account 값" + account +" 입력된 pw값"+ pwd);
+		System.out.println("입력된 account 값 : " + account +" 입력된 pw값 : "+ pwd);
 		UserVO uvo = DAO.checkId(account);
 		
-		if(!uvo.getAccount().equalsIgnoreCase(account) || !uvo.getPassword().equalsIgnoreCase(pwd)) {
+		PrintWriter out = response.getWriter();
+		
+		if(uvo==null){
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<meta charset='utf-8'>");
+			out.println("<head>");
+			out.println("<script>");
+			out.println("alert('존재하지 않는 아이디입니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+			out.println("</head>");
+			out.println("</html>");
+			out.close();
+		}
+		
+		if(uvo.getAccount().equalsIgnoreCase(account) && uvo.getPassword().equalsIgnoreCase(pwd)) {
+			System.out.println("getid():" + uvo.getId());
+			request.getSession().setAttribute("account", account);	
+			request.getSession().setAttribute("uservo", uvo);
 			
-			PrintWriter out = response.getWriter();
+			List userResList =  DAO.getUserReservation(uvo.getId());
+			System.out.println(userResList);
+			
+			request.getSession().setAttribute("userReservationvo",userResList);
+			
+			//--김재현 추가부분
+			//--> 유저 고유 id 번호에 대한 boardplusVO 리스트로 전체 보기
+			request.getSession().setAttribute("userboardtotalList", DAO.getUserBoardTotalList(uvo.getId()));
+			//--
+			
+			return "main.jsp";
+	/*	} else if(uvo==null){
+			
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<meta charset='utf-8'>");
+			out.println("<head>");
+			out.println("<script>");
+			out.println("alert('존재하지 않는 아이디입니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+			out.println("</head>");
+			out.println("</html>");
+			out.close();*/
+		} else {
 			
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
@@ -35,30 +78,13 @@ public class LoginCheckCommand implements Command {
 			out.println("<head>");
 			out.println("<script>");
 			out.println("alert('아이디 혹은 비밀번호가 틀립니다.')");
+			out.println("history.back()");
 			out.println("</script>");
 			out.println("</head>");
 			out.println("</html>");
 			out.close();
-			
-			return "login.jsp";
-			} else {
-				System.out.println("getid():" + uvo.getId());
-				request.getSession().setAttribute("account", account);	
-				request.getSession().setAttribute("uservo", uvo);
-				
-				List userResList =  DAO.getUserReservation(uvo.getId());
-				System.out.println(userResList);
-				
-				request.getSession().setAttribute("userReservationvo",userResList);
-				
-				//--김재현 추가부분
-				//--> 유저 고유 id 번호에 대한 boardplusVO 리스트로 전체 보기
-			request.getSession().setAttribute("userboardtotalList", DAO.getUserBoardTotalList(uvo.getId()));
-				//--
-			path = "controller?type=main";
 		}
-		return path;
-		
+		return "login.jsp";
 		
 		/*
 		if(uvo==null) return "loginFailed.jsp?errorType=nullId";

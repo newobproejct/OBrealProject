@@ -88,6 +88,8 @@ public class Controller extends HttpServlet {
 			comm = new LoginCommand();
 		} else if (type.equals("loginCheck")) {
 			comm = new LoginCheckCommand();
+		} else if (type.equals("logout")) {
+			comm = new LogoutCommand();
 		} else if (type.equals("test1")) {
 			comm = new Test1Command();
 		} else if (type.equals("test2")) {
