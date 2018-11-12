@@ -22,7 +22,9 @@ legend {
 fieldset {
 	border: 1px solid white;
 }
-
+#sub_img {
+	margin-left: 100px;
+}
 </style>
 <script>
 	function login_go(frm) {

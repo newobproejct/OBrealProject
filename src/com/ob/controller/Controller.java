@@ -22,8 +22,10 @@ import com.ob.command.JoincheckCommand;
 import com.ob.command.LocationCommand;
 import com.ob.command.LoginCheckCommand;
 import com.ob.command.LoginCommand;
+import com.ob.command.LogoutCommand;
 import com.ob.command.MainCommand;
 import com.ob.command.MorequeCommand;
+import com.ob.command.MypageCommand;
 import com.ob.command.NoticeCommand;
 import com.ob.command.NoticeDelCommand;
 import com.ob.command.NoticeModiCommand;
@@ -136,9 +138,13 @@ public class Controller extends HttpServlet {
 			comm = new IdCheckCommand();
 		} else if (type.equals("joincheck")) {
 			comm = new JoincheckCommand();
-		}else if (type.equals("search_theme")) {
+		} else if (type.equals("search_theme")) {
 			comm = new SearchThemeCommand();
-		}
+		} else if (type.equals("logout")) {
+			comm = new LogoutCommand();
+		} else if (type.equals("myPage")) {
+			comm = new MypageCommand();
+		} 
 
 
 		path = comm.exec(request, response);
