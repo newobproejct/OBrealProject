@@ -89,7 +89,7 @@ section:after {
 	font-weight: bold;
 }
 
-.menubar ul {
+.menubar>ul {
 	background: #292929;
 	height: 50px;
 	list-style: none;
@@ -97,15 +97,15 @@ section:after {
 	padding: 0;
 }
 
-.menubar li {
+.menubar>ul>li {
 	float: left;
 	padding: 0px;
 }
 
-.menubar li a {
+.menubar>ul>li>a, .menubar>ul li a{
 	background: #292929;
 	color: #cccccc;
-	display: block;
+	display: inline-block;
 	font-weight: normal;
 	line-height: 50px;
 	margin: 0px;
@@ -120,7 +120,7 @@ section:after {
 	text-decoration: none;
 }
 
-.menubar li ul {
+#dropdown {
 	background: #292929;
 	display: none;
 	/* �룊�긽�떆�뿉�뒗 �뱶�엻硫붾돱媛� �븞蹂댁씠寃� �븯湲� */
@@ -130,12 +130,12 @@ section:after {
 	border: 0px;
 	position: absolute;
 	width: 200px;
-	z-index: 200;
+	z-index: 1;
 	/*top:1em;
 /*left:0;*/
 }
 
-.menubar li:hover ul {
+.menubar li:hover #dropdown {
 	display: block;
 	/* 留덉슦�뒪 而ㅼ꽌 �삱由щ㈃ �뱶�엻硫붾돱 蹂댁씠寃� �븯湲� */
 }
