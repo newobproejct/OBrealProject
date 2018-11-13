@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,6 +28,9 @@
 		<td colspan="3">예약가능일</td>
 		<td colspan="3">
 			<c:select var="ableDate" items="">
+<%				Calendar cal = Calendar.getInstance();
+				Date today = cal.getTime();
+%>
 				<c:option></c:option>
 			</c:select>
 		</td>

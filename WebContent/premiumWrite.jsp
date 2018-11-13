@@ -7,6 +7,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script>
+	var file = document.querySelector('#getfile');
+	
+	file.onchange = function(){
+	    var fileList = file.files ;
+	
+	    // 읽기
+	    var reader = new FileReader();
+	    reader.readAsDataURL(fileList[0]);
+	
+	    //로드 한 후
+	    reader.onload = function(){
+	        document.querySelector('#preview').src = reader.result;
+	    };
+	};
+</script>
 </head>
 <body>
 
@@ -44,8 +60,14 @@
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea rows="20" cols="40"></textarea>
+						<img id="preview" src="" width="100%" alt="로컬에 있는 이미지가 보여지는 영역">
+						<textarea rows="20" cols="40">
+						</textarea>
 					</td>
+				</tr>
+				<tr>
+					<th>사진첨부</th>
+					<td><input multiple="multiple" id="getfile" type="file" name="filename[]" accept="image/*"/></td>
 				</tr>
 			</tbody>
 		</table>		

@@ -75,7 +75,7 @@
 </style>
 <script type="text/javascript">
 	function res_go(frm) {
-		frm.action = "controller?type=addadd";
+		frm.action = "controller?type=reservation";
 		frm.submit();
 	}
 </script>
@@ -112,7 +112,7 @@
 								<c:forEach var="roomlist" items="${getRoomimp }">
 									<tr>
 										<td><a href="#" title="이미지사진"> <img id="imgsize"
-												src="imgs/${roomlist.filename} "
+												src="imgs/${roomlist.filename}" onclick="res_go(this.form)"
 												alt="${roomlist.room_name }"></a></td>
 										<td>${roomlist.room_name }</td>
 										<td>${roomlist.room_address1 }&nbsp;
