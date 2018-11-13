@@ -1,12 +1,13 @@
 package com.ob.dao;
 
-import java.util.List;
+import java.util.List;  
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.ob.mybatis.DBService;
 import com.ob.vo.BoardplusVO;
+import com.ob.vo.BoardreplyVO;
 import com.ob.vo.ReservationVO;
 import com.ob.vo.RoomTABLEVO;
 import com.ob.vo.Si_GuVO;
@@ -134,6 +135,25 @@ public class DAO {
 	// 문의사항 게시물보기
 	public static BoardplusVO queSelOne(String id) {
 		BoardplusVO vo = getSql().selectOne("queSelOne", id);
+		return vo;
+	}
+	
+	// 문의사항 게시물 수정
+	public static int queUp(BoardplusVO vo) {
+		int result = getSql().update("queUp", vo);
+		getSql().commit();
+		return result;
+	}
+	// 문의사항 댓글입력
+	public static int queCommentsInsert(BoardreplyVO vo) {
+		int result = getSql().insert("queCommentsInsert", vo);
+		getSql().commit();
+		return result;
+	}
+	
+	// 문의사항 댓글보기
+	public static BoardreplyVO queCommentsSelOne(String id) {
+		BoardreplyVO vo = getSql().selectOne("queCommentsSelOne", id);
 		return vo;
 	}
 

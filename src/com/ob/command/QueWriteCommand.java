@@ -1,6 +1,6 @@
 package com.ob.command;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest; 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -40,7 +40,7 @@ public class QueWriteCommand implements Command {
 			vo.setWrite_date(date);
 			vo.setRead_count(count);
 			
-			DAO.noticeInsert(vo);
+			DAO.queInsert(vo);
 			
 			path = "controller?type=que&board_type=3";
 		}

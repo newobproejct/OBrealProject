@@ -14,7 +14,7 @@ public class queViewComand implements Command {
 		
 		BoardplusVO vo = DAO.queSelOne(id);
 		
-		request.getSession().setAttribute("Bovo", vo);
+		request.getSession().setAttribute("BPVO", vo);
 		
 		String path = "queView.jsp";
 		

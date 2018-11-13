@@ -197,8 +197,20 @@
 		SELECT * FROM OBHOTEL_BOARD
 		WHERE ID = #{id}
 	</select>
+	
+	<!-- 문의사항  게시글 작성-->
+	<insert id="queInsert" parameterType="com.ob.vo.BoardplusVO">
+		INSERT INTO
+		OBHOTEL_BOARD
+		(ID, USER_ID, BOARD_TYPE, TITLE, CONTENT, WRITE_DATE,
+		READ_COUNT)
+		VALUES
+		(OBHOTEL_BOARD_SEQ.NEXTVAL, #{user_id},
+		#{board_type}, #{title},
+		#{content}, SYSDATE, 0)
+	</insert>
 
-
+	<!-- 문의사항 상세보기 -->
 	<select id="queList" resultType="com.ob.vo.BoardplusVO"
 		parameterType="map">
 		SELECT *
@@ -214,7 +226,28 @@
 		WHERE R_NUM
 		BETWEEN #{begin} AND #{end}
 	</select>
-
+	
+	<!-- 문의사항 수정 -->
+	<update id="queUp" parameterType="com.ob.vo.BoardplusVO">
+		UPDATE OBHOTEL_BOARD SET
+		USER_ID = #{user_id}, BOARD_TYPE = #{board_type},
+		TITLE = #{title},
+		CONTENT = #{content}, WRITE_DATE = SYSDATE,
+		READ_COUNT = 0
+		WHERE ID =
+		#{id}
+	</update>
+	
+	<!-- 문의사항 댓글 입력(COMMENT) -->
+	<insert id="que_comment" parameterType="com.ob.vo.BoardreplyVO">
+		INSERT INTO 
+		OBHOTEL_BOARD_REPLY 
+		(ID, BOARD_ID, USER_ID, CONTENT, WRITE_DATE)
+		VALUES
+		(OBHOTEL_BOARD_RELY_SEQ.NEXTVAL, #{board_id} #{user_id},
+		#{content}, SYSDATE)
+	</insert>
+		
 
 	<!-- ******이벤트 게시판 ******** -->
 

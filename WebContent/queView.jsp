@@ -47,16 +47,17 @@
 		} else {
 			alert="삭제취소 되었습니다."
 		}
+	}
 	
-	function list_go(frm) {
+	function view_go(frm) {
 			frm.action="controller?type=que&board_type=3";
+			frm.submit();
 		}
-	function sendData(frm) {
-			frm.actipn= ""
-	}
 	
-	
+	 function sendData_go(frm) {
+			frm.action="controller?type=que&board_type=3&id=${BPLYVO.id}";
 	}
+ 
 </script>
 </head>
 <body>
@@ -82,8 +83,12 @@
 						<caption>문의사항 상세보기</caption>
 						<tbody>
 							<tr>
+								<th>제목</th>
+								<td>${BPVO.title }</td>
+							</tr>
+							<tr>
 								<th>작성자</th>
-								<td>${uservo.nickname}</td>
+								<td>${BPVO.user_id}</td>
 							</tr>
 							<tr>
 								<th>전화번호</th>
@@ -95,13 +100,13 @@
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td>${BPVO.content}</td>
+								<td><pre>${BPVO.content}</pre></td>
 							</tr>
 							<tr>
 								<td colspan="2">
 		                        <input type="button" value="수  정" onclick="modify_go(this.form)"> 
 		                        <input type="button" value="삭  제" onclick="delete_go(this.form)"> 
-		                        <input type="button" value="목  록" onclick="list_go(this.form)">
+		                        <input type="button" value="목  록" onclick="view_go(this.form)">
                         	</td>
                         	</tr>
 						</tbody>
@@ -112,11 +117,10 @@
 				<form method="post">
 					<p>ID : <input type="text" name="writer"></p>
 					<p>내용 : <textarea name="content" rows="4" cols="55"></textarea>
-					<p>비밀번호 : <input type = "password" name="pwd"></p>
-					<input type="submit" value="댓글저장" onclick="sendData(this.form)">
+					<input type="submit" value="댓글저장" onclick= "sendData_go(this.form)">
 					
-					<input type="hidden" name="delete_chk" value="chk">
-                    <input type="hidden" name="delete_id" value="${bplyVO.id}">
+					<input type="hidden" name="write_chk" id="chk">
+					<input type="hidden" name="delete_id" value="${BPLYVO.id}"> 
 				</form>
 				
 				<hr>
@@ -124,9 +128,9 @@
 				<%-- 댓글창 출력 --%>
 				<div class="comment">
 					<form>
-						<p>이름: ${bplyVO.writer }</p>
-						<p>날짜: ${bplyVO.write_date }</p>
-						<p>내용: ${bplyVO.content }</p>
+						<p>이름: ${BPLYVO.writer }</p>
+						<p>날짜: ${BPLYVO.write_date }</p>
+						<p>내용: ${BPLYVO.content }</p>
 						<input type="button" value="수  정" onclick="reply_modify_go(this.form)">
 						<input type="button" value="삭  제" onclick="reply_delete_go(this.form)">
 					</form>
