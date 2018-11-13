@@ -84,6 +84,7 @@ public class SearchListCommand implements Command {
 		// request.getSession().setAttribute("getRoomimp", list);
 		request.setAttribute("pvo", p);
 		request.setAttribute("getRoomimp", list);
+		request.setAttribute("cPage", cPage);
 		request.getSession().setAttribute("chk_si", chk_si);
 		request.getSession().setAttribute("chk_gu", chk_gu);
 		return "search_main.jsp";
