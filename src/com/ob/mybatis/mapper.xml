@@ -305,7 +305,7 @@
 	<select id="get_room" resultType="com.ob.vo.RoomTABLEVO"
 		parameterType="map">
 		select *
-		  from (select rownum r_num, r.room_type_id
+		  from (select rownum r_num,r.id room_id, r.room_type_id
 		              ,room_name,room_num,room_content ,room_address1,room_address2
 		              ,room_theme,filename,room_type,max_pax,cost
 		          from obhotel_room r
@@ -335,7 +335,7 @@
 
 	<select id="get_Roomtheme" resultType="com.ob.vo.RoomTABLEVO"
 		parameterType="map">
-		select * from (select ROWNUM R_NUM, r.room_type_id
+		select * from (select ROWNUM R_NUM,r.id room_id, r.room_type_id
 		,room_name,room_num,room_content ,room_address1,room_address2,
 		room_theme,
 		filename,room_type,max_pax,cost from obhotel_room r
