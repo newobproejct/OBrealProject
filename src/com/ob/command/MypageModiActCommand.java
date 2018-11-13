@@ -30,6 +30,10 @@ public class MypageModiActCommand implements Command {
 		int e_confirm = Integer.parseInt(request.getParameter("e_confirm"));
 		String tel = request.getParameter("tel");
 	
+		
+		System.out.println("/1/" + account + "/2/" + password + "/3/" + nickname + "/4/" + birthday + "/5/" + zipcode + 
+				"/6/" + address1 + "/7/" + address2 + "/8" + email + "/9/" + e_confirm + "/10/" + tel);
+		
 		String path = null;
 		
 		if (chk == null) {
@@ -52,6 +56,8 @@ public class MypageModiActCommand implements Command {
 			
 			DAO.mypageUP(vo);
 		
+			request.getSession().setAttribute("uVO", vo);
+			
 			path = "main.jsp";
 		}
 		return path;

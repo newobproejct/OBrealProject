@@ -47,28 +47,28 @@
 					<legend>회원 정보 수정</legend>
 					
 					<label>아이디</label>
-					<input type="text" name="id" size="22" value="${uservo.getAccount()}" readonly="readonly"><br><br>
+					<input type="text" name="id" size="22" value="${uVO.getAccount()}" readonly="readonly"><br><br>
 					
 					<label>비밀번호</label>
-					<input type="password" name="pwd" value="${uservo.getPassword()}"><br><br>
+					<input type="password" name="pwd" value="${uVO.getPassword()}"><br><br>
 					
 					<label>이름</label>
-					<input type="text" name="name" value="${uservo.getNickname()}"><br><br>
+					<input type="text" name="name" value="${uVO.getNickname()}"><br><br>
 					
 					<label>휴대폰 번호</label>
-					<input type="text" name="tel" value="${uservo.getTel() }"><br><br>
+					<input type="text" name="tel" value="${uVO.getTel() }"><br><br>
 					
 					<label>주소</label>
-					<input type="text" name="zipcode" id="zipcode" value="${uservo.getZipcode()}" size="15"><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" id="roadaddress" value="${uservo.getAddress1()}"><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="detail" value="${uservo.getAddress2()}"><br><br>		
+					<input type="text" name="zipcode" id="zipcode" value="${uVO.getZipcode()}" size="15"><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" id="roadaddress" value="${uVO.getAddress1()}"><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="detail" value="${uVO.getAddress2()}"><br><br>		
 
 					
 					<label>E-Mail</label>
-					<input type="text" name="email" value="${uservo.getEmail()}"><br><br>
+					<input type="text" name="email" value="${uVO.getEmail()}"><br><br>
 					
 					<label>생년월일</label>
-					<input type="text" name="birthday" value="${uservo.getBirthday().substring(0, 10)}"><br><br>
+					<input type="text" name="birthday" value="${uVO.getBirthday().substring(0, 10)}"><br><br>
 													
 					<label>광고 수신 동의</label>
 					<input type="radio" name="e_confirm" value="0" checked>동의함&nbsp;&nbsp;&nbsp;
@@ -81,7 +81,7 @@
 					<input type="reset" value="취소" class="cancel" onclick="cancel()">
 					
 					<input type="hidden" name="chk" value="chk">
-					<input type="hidden" name="idx" value="${uservo.getId()}">
+					<input type="hidden" name="idx" value="${uVO.getId()}">
 				</div>
 			</form>
 		 </article>
