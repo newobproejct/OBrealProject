@@ -5,15 +5,18 @@
 <head>
 <title>QUESTION.JSP</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<style>
-		nav a {
-			text-decoration: none;
-		}
-		#li2 {
-			font-size: 2em;
-			font-weight: bold;
-		}
-	</style>
+<style>
+	nav a {
+		text-decoration: none;
+	}
+	#li2 {
+		font-size: 2em;
+		font-weight: bold;
+	}
+</style>
+<script>
+
+</script>
 </head>
 <body>
 
@@ -31,10 +34,6 @@
 				<li><a href="controller?type=agree">약관 및 동의사항</a></li>
 			</ul>
 		</nav>
-
-		<article>
-			
-		</article>
 	</section>
 
 

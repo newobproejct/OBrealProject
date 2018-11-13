@@ -41,10 +41,17 @@ public class DAO {
 
 	// 회원 정보 변경 페이지
 	public static int mypageUP(UserVO vo) {
-		int result = getSql().update("mypageUp", vo);
+		int result = getSql().update("mypageUP", vo);
 		getSql().commit();
 		return result;
 	}
+	
+	// 중복 아이디 조회
+	public static UserVO dupIdChk(String account) {
+		return getSql().selectOne("dupIdChk", account);
+	}
+	
+	
 	
 	/* *****************************************************************/
 
@@ -202,6 +209,12 @@ public class DAO {
 	//(예약용) room_id로 예약조회
 	public static List<ReservationVO> getResByRid(String room_id) {
 		return getSql().selectList("getResByRid",room_id);
-		
 	}
+	
+	//(예약용) room_id로 방 상세정보 조회
+	public static List<RoomTABLEVO> getRoomTableByRid(String room_id) {
+		return getSql().selectList("getRoomTableByRid",room_id);
+	}
+	
+	
 }

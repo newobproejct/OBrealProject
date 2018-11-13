@@ -52,8 +52,14 @@
 	}
 	
 	function idCheck() {
-		window.name="parentform";
-		window.open("idCheck.jsp", "chkForm", "width=500, height=300, resizable=no, scrollbars=no");
+		var inputId = document.formm.id.value;
+		if (inputId == "" || inputId.length == 0){
+			alert("중복 체크할 아이디를 먼저 입력하세요.")
+			document.formm.id.focus();
+			return;
+		}
+		var account = document.getElementById('account').value;
+		window.open("controller?type=idCheck&id="+account, "chkForm", "width=350, height=300, resizable=no, scrollbars=no");
 	}
 </script>
 </head>
@@ -70,7 +76,7 @@
 					<legend>회원가입</legend>
 					
 					<label>아이디</label>
-					<input type="text" name="id" placeholder="회원아이디" size="22" onkeydown="inputIdChk()">
+					<input type="text" id="account" name="id" placeholder="회원아이디" size="22" onkeydown="inputIdChk()">
 					<input type="hidden" name="reid" value="idUncheck">
 					<input type="button" value="중복확인" class="dup" onclick="idCheck()"><br><br>
 					
@@ -84,57 +90,9 @@
 					<input type="text" name="tel" placeholder="휴대폰번호"><br><br>
 					
 					<label>주소</label>
-					<input type="text" name="zipcode" id="zipcode" placeholder="우편번호" size="15">
-					<input type="button" value="주소찾기" class="dup" onclick="post_zip()"><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" id="roadaddress" placeholder="도로명주소"><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="detail" placeholder="상세주소"><br><br>		
-					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-					<script>
-					 function post_zip() {
-						  new daum.Postcode({
-								oncomplete: function(data) {
-									
-									 var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-									 var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-					
-
-									 if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-										  extraRoadAddr += data.bname;
-									 }
-
-									 if(data.buildingName !== '' && data.apartment === 'Y'){
-										 extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-									 }
-
-									 if(extraRoadAddr !== ''){
-										  extraRoadAddr = ' (' + extraRoadAddr + ')';
-									 }
-
-									 if(fullRoadAddr !== ''){
-										  fullRoadAddr += extraRoadAddr;
-									 }
-					
-
-									 document.getElementById('zipcode').value = data.zonecode;
-									 document.getElementById('roadaddress').value = fullRoadAddr;
-
-									 
-									 if(data.autoRoadAddress) {
-									
-										  var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-										  document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-					
-									 } else if(data.autoJibunAddress) {
-										  var expJibunAddr = data.autoJibunAddress;
-										  document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-					
-									 } else {
-										  document.getElementById('guide').innerHTML = '';
-									 }
-								}
-						  }).open();
-					 }
-					</script>
+					<input type="text" name="zipcode" id="zipcode" placeholder="우편번호" size="15"><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" id="roadaddress" placeholder="예) 서울특별시"><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="detail" placeholder="예) 마포구 백범로..."><br><br>		
 					
 					<label>E-Mail</label>
 					<input type="text" name="email" placeholder="이메일"><br><br>

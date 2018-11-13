@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ob.command.AddAddCommand;
 import com.ob.command.Admin_file_systemCommand;
 import com.ob.command.Admin_systemCommand;
 import com.ob.command.AgreeCommand;
@@ -151,7 +152,9 @@ public class Controller extends HttpServlet {
 			comm = new CommonCommand(type);
 		} else if (type.equals("myPageModiAct")) {
 			comm = new MypageModiActCommand();
-		} 
+		} else if (type.equals("addadd")) {
+			comm =new AddAddCommand();
+		}
 
 
 		path = comm.exec(request, response);

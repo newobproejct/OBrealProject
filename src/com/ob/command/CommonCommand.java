@@ -15,6 +15,9 @@ public class CommonCommand implements Command {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		switch (type) {
+		case "login":
+			path = "login.jsp";
+			break;
 		case "myPageModi":
 			path = "myPageModi.jsp";
 			break;

@@ -68,12 +68,17 @@
 	width: 200px;
 	height: 250px;
 }
+
 .title {
 	background-color: lightsteelblue;
 }
-
-
 </style>
+<script type="text/javascript">
+	function res_go(frm) {
+		frm.action = "controller?type=addadd";
+		frm.submit();
+	}
+</script>
 </head>
 
 <body>
@@ -83,50 +88,64 @@
 				<thead>
 					<tr class="title">
 						<th>사진</th>
-						<th style="width: 20%">호텔이름</th>
+						<th style="width: 17%">호텔이름</th>
 						<th style="width: 10%">위치</th>
 						<th style="width: 10%;">방번호</th>
 						<th style="width: 10%;">타입</th>
-						<th style="width: 20%;">하루 숙박요금</th>
+						<th style="width: 18%;">하루 숙박요금</th>
 						<th style="width: 10%;">수용인원</th>
 						<th style="width: 30%;">간단 설명</th>
 						<th style="width: 10%;">테마</th>
+						<th style=""></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
 						<c:when test="${empty getRoomimp  }">
 							<tr>
-								<td colspan="9"><h2>검색 조건이 없습니다</h2></td>
+								<td colspan="10"><h2>검색 조건이 없습니다</h2></td>
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<!--데이타 있는 경우 tr 태그 작성 -->
-							<c:forEach var="roomlist" items="${getRoomimp }">
-								<tr>
-									<td>
-										<%-- <a href="controller?type=event_detail&b_id=${vo.id }"
-							title="event이미지">  --%> <a href="#" title="이미지사진"></a><img
-										id="imgsize" src="imgs/${roomlist.filename} "
-										alt="${roomlist.room_name }">
-									</td>
-									<td>${roomlist.room_name }</td>
-									<td>${roomlist.room_address1 } &nbsp; ${roomlist.room_address2 } </td>									
-									<td>${roomlist.room_num }</td>
-									<td>${roomlist.room_type }</td>
-									<td>${roomlist.cost }원</td>
-									<td>${roomlist.max_pax }명</td>
-									<td>${roomlist.room_content }</td>
-									<td>${roomlist.room_theme }</td>
-								</tr>
-							</c:forEach>
+							<form method="post">
+								<!--데이타 있는 경우 tr 태그 작성 -->
+								<c:forEach var="roomlist" items="${getRoomimp }">
+									<tr>
+										<td><a href="#" title="이미지사진"> <img id="imgsize"
+												src="imgs/${roomlist.filename} "
+												alt="${roomlist.room_name }"></a></td>
+										<td>${roomlist.room_name }</td>
+										<td>${roomlist.room_address1 }&nbsp;
+											${roomlist.room_address2 }</td>
+										<td>${roomlist.room_num }</td>
+										<td>${roomlist.room_type }</td>
+										<td>${roomlist.cost }원</td>
+										<td>${roomlist.max_pax }명</td>
+										<td>${roomlist.room_content }</td>
+										<td>${roomlist.room_theme }</td>
+
+										<td><input type="button" value="예약하기"
+											onclick="res_go(this.form)"></td>
+
+									</tr>
+									<input type="hidden" name="room_id" value="${roomlist.room_id}"> 
+									<input type="hidden" name="room_type_id" value="${roomlist.room_type_id}"> 
+									<input type="hidden" name="room_name" value="${roomlist.room_name}"> 
+									<input type="hidden" name="room_num" value="${roomlist.room_num}"> 
+									<input type="hidden" name="room_content" value="${roomlist.room_content}"> 
+									<input type="hidden" name="room_address1" value="${roomlist.room_address1}"> 
+									<input type="hidden" name="room_address2" value="${roomlist.room_address2}"> 
+									<input type="hidden" name="room_theme" value="${roomlist.room_theme }"> 
+									
+								</c:forEach>
+							</form>
 						</c:otherwise>
 					</c:choose>
 
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="9">
+						<td colspan="10">
 							<ol class="paging">
 								<%--[이전으로]에 대한 사용여부 처리 --%>
 								<c:choose>

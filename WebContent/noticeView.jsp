@@ -31,6 +31,9 @@
     border:1px solid black;
     padding:4px 10px;
 }
+#setting {
+	margin-left: 10px;
+}
 </style>
 <script>
       function modify_go() {
@@ -89,22 +92,26 @@
                         <th>내용</th>
                         <td><pre>${BPVO.content}</pre></td>
                      </tr>
-                     <tr>
-                        <td colspan="2">
-                        <input type="button" value="수  정" onclick="modify_go()"> 
-                        <input type="button" value="삭  제" onclick="delete_go()"> 
-                        <input type="button" value="목  록" onclick="list_go()"> 
-                        
-                        <input type="hidden" name="delete_chk" value="chk">
-                        <input type="hidden" name="delete_id" value="${BPVO.id}">
-                        </td>
-                     </tr>
                   </tbody>
-               </table>
-            </form>
-         </div>
-      </article>
-   </section>
+				</table>
+					<div id="setting"> 
+					<br>              
+	                     <c:if test="${sessionScope.uservo.getAccount() == 'admin' }">
+	                        <input type="button" value="수  정" onclick="modify_go()"> 
+	                        <input type="button" value="삭  제" onclick="delete_go()"> 
+	                        <input type="button" value="목  록" onclick="list_go()"> 
+	                        <input type="hidden" name="delete_chk" value="chk">
+	                        <input type="hidden" name="delete_id" value="${BPVO.id}">
+	                     </c:if>
+	                     <c:if test="${sessionScope.uservo.getAccount() != 'admin' }">	
+	                    	<input type="hidden" name="delete_chk" value="chk">
+	                        <input type="hidden" name="delete_id" value="${BPVO.id}">						
+						</c:if>
+					</div>
+	            </form>
+	         </div>
+	      </article>
+	   </section>
    
    <footer>
       <jsp:include page="footer.jsp"></jsp:include>
