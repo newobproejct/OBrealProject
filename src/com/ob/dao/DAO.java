@@ -198,4 +198,10 @@ public class DAO {
 
 		return getSql().selectList("get_Address");
 	}
+	
+	//(예약용) room_id로 예약조회
+	public static List<ReservationVO> getResByRid(String room_id) {
+		return getSql().selectList("getResByRid",room_id);
+		
+	}
 }

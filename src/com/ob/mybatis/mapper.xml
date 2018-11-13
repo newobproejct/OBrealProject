@@ -354,5 +354,13 @@
 		select distinct room_address1, room_address2 from obhotel_room order by room_address1
 	</select>
 
+	<!-- (예약용) room_id로 reservation 조회 -->
+	<select id="getResByRid" resultType="com.ob.vo.ReservationVO"
+		parameterType="String">
+		SELECT *
+		  FROM OBHOTEL_RESERVATION
+		 WHERE ROOM_ID = #{room_id}
+		   AND SYSDATE &lt; S_DATE
+	</select>
 </mapper>
 
