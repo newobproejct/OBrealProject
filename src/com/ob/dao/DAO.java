@@ -41,10 +41,17 @@ public class DAO {
 
 	// 회원 정보 변경 페이지
 	public static int mypageUP(UserVO vo) {
-		int result = getSql().update("mypageUp", vo);
+		int result = getSql().update("mypageUP", vo);
 		getSql().commit();
 		return result;
 	}
+	
+	// 중복 아이디 조회
+	public static UserVO dupIdChk(String account) {
+		return getSql().selectOne("dupIdChk", account);
+	}
+	
+	
 	
 	/* *****************************************************************/
 

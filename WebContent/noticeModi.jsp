@@ -31,6 +31,9 @@
     border:1px solid black;
     padding:4px 10px;
 }
+#setting {
+	margin-left: 10px;
+}
 </style>
 <script>
 	function save_go() {
@@ -78,22 +81,21 @@
 								<td><input type="text" name="content" value="${BPVO.content}"
 									style="width:300px; height:50px;"></td>
 							</tr>
-							<tr>
-								<td colspan="2">
+						</tbody>
+					</table>
+						<div id="setting">
+						<br>
 									<input type="button" value="수  정" onclick="save_go()">
 									<input type="reset" value="초 기 화">
 									<input type="button" value="목  록" onclick="list_go()">
 									
 									<input type="hidden" name="update_id" value="${BPVO.id}">
 									<input type="hidden" name="update_chk" value="chk">
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
-		</article>
-	</section>
+						</div>		
+					</form>
+				</div>
+			</article>
+		</section>
 	
 	<footer>
 		<jsp:include page="footer.jsp"></jsp:include>

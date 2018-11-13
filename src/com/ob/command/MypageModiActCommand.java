@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ob.dao.DAO;
 import com.ob.vo.UserVO;
@@ -14,7 +15,10 @@ public class MypageModiActCommand implements Command {
 	public String exec(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String chk = request.getParameter("chk");
 		
-		String id = request.getParameter("idx");
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("uservo");
+		String id = uvo.getId();
+		
 		String account = request.getParameter("id");
 		String password = request.getParameter("pwd");
 		String nickname = request.getParameter("name");
@@ -25,12 +29,13 @@ public class MypageModiActCommand implements Command {
 		String email = request.getParameter("email");
 		int e_confirm = Integer.parseInt(request.getParameter("e_confirm"));
 		String tel = request.getParameter("tel");
-		
+	
 		String path = null;
 		
 		if (chk == null) {
 			path = "myPageModi.jsp";
 		} else {
+			
 			UserVO vo = new UserVO();
 			
 			vo.setId(id);
@@ -47,7 +52,7 @@ public class MypageModiActCommand implements Command {
 			
 			DAO.mypageUP(vo);
 		
-			path = "controller?type=main";
+			path = "main.jsp";
 		}
 		return path;
 	}
