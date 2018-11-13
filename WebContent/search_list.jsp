@@ -73,12 +73,7 @@
 	background-color: lightsteelblue;
 }
 </style>
-<script type="text/javascript">
-	function res_go(frm) {
-		frm.action = "controller?type=reservation";
-		frm.submit();
-	}
-</script>
+
 </head>
 
 <body>
@@ -111,10 +106,10 @@
 								<!--데이타 있는 경우 tr 태그 작성 -->
 								<c:forEach var="roomlist" items="${getRoomimp }">
 									<tr>
-										<td><a href="#" title="이미지사진"> <img id="imgsize"
-												src="imgs/${roomlist.filename}" onclick="res_go(this.form)"
+										<td><a href="controller?type=reservation&room_id=${roomlist.room_id }" title="이미지사진"> <img id="imgsize"
+												src="imgs/${roomlist.filename}"
 												alt="${roomlist.room_name }"></a></td>
-										<td>${roomlist.room_name }</td>
+										<td><a href="controller?type=reservation&room_id=${roomlist.room_id }">${roomlist.room_name }</a></td>
 										<td>${roomlist.room_address1 }&nbsp;
 											${roomlist.room_address2 }</td>
 										<td>${roomlist.room_num }</td>
@@ -125,7 +120,7 @@
 										<td>${roomlist.room_theme }</td>
 
 										<td><input type="button" value="예약하기"
-											onclick="res_go(this.form)"></td>
+											onclick="controller?type=reservation&room_id=${roomlist.room_id }"></td>
 
 									</tr>
 									<input type="hidden" name="room_id" value="${roomlist.room_id}"> 

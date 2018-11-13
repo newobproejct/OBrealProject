@@ -212,8 +212,8 @@ public class DAO {
 	}
 	
 	//(예약용) room_id로 방 상세정보 조회
-	public static List<RoomTABLEVO> getRoomTableByRid(String room_id) {
-		return getSql().selectList("getRoomTableByRid",room_id);
+	public static RoomTABLEVO getRoomTableByRid(String room_id) {
+		return getSql().selectOne("getRoomTableByRid",room_id);
 	}
 	
 	

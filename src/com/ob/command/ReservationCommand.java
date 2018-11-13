@@ -24,7 +24,8 @@ public class ReservationCommand implements Command {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String room_id = request.getParameter("room_id"); // RoomVO 에서 id에 해당
-		List<RoomTABLEVO> roomTableList= DAO.getRoomTableByRid(room_id);
+		System.out.println("room_id : " + room_id);
+		RoomTABLEVO roomTable= DAO.getRoomTableByRid(room_id);
 		List<ReservationVO> list = DAO.getResByRid(room_id);
 		
 		/* *************************************************************
@@ -52,17 +53,15 @@ public class ReservationCommand implements Command {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
-		String s_dateString =""; 
+		String s_dateString ="";
 		String e_dateString ="";
 		Date s_date = new Date();
 		Date e_date = new Date();
-		Date[] reserved_date = new Date[] {};
 		
-		Date today = new Date();
 		Calendar cal = Calendar.getInstance();
 		
 		Map<String, Date> resDateMap = new HashMap<>();
-		ArrayList<String> dates = new ArrayList<String>();
+		List<String> dates = new ArrayList<String>();
 		
 		if(!list.isEmpty()) {
 			for(ReservationVO resvo : list) {
@@ -75,13 +74,11 @@ public class ReservationCommand implements Command {
 				} catch (ParseException e) {
 				}
 			        
-		        Date currentDate = s_date;
-		        
-		        while (currentDate.compareTo(e_date) <= 0) {
-		            dates.add(format.format(currentDate));
-		            cal.setTime(currentDate);
+		        while (s_date.compareTo(e_date) <= 0) {
+		            dates.add(format.format(s_date));
+		            cal.setTime(s_date);
 		            cal.add(Calendar.DAY_OF_MONTH, 1);
-		            currentDate = cal.getTime();
+		            s_date = cal.getTime();
 		        }
 			}
 		}
@@ -89,8 +86,8 @@ public class ReservationCommand implements Command {
 		System.out.println("dates : " + dates);
 		
 		request.setAttribute("dates", dates);
-		request.setAttribute("roomTableList", roomTableList);
-		
+		request.setAttribute("roomTable", roomTable);
+		System.out.println("roomTable : " + roomTable);
 		return "reservation.jsp";
 	}
 
