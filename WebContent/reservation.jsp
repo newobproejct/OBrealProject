@@ -9,13 +9,23 @@
 <%				
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar cal = Calendar.getInstance();
+	
+	//이번달
 	int year = cal.get(Calendar.YEAR);
     int mon = cal.get(Calendar.MONTH)+1;
     int day = cal.get(Calendar.DAY_OF_MONTH);
     System.out.println("day:" + day);
     int startDate = day;
-    int firstday = cal.getActualMinimum(Calendar.DATE);
+    int firstday = 1;
     int lastday = cal.getActualMaximum(Calendar.DATE);
+    
+    //다음달
+    cal.set(year, mon, day);
+	int year2 = cal.get(Calendar.YEAR);
+    int mon2 = cal.get(Calendar.MONTH)+1;
+    int day2 = cal.get(Calendar.DATE);
+    int lastday2 = cal.getActualMaximum(Calendar.DATE);
+    
     List<String> enableDateList = (List<String>)request.getAttribute("dates");
     System.out.println("enableDateList : " + enableDateList);
     String nowDate="";
@@ -27,8 +37,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>예약하기</title>
+<script>
+	function reserveOk(frm){
+		var ok = confirm("예약하시겠습니까?")
+		if(ok==true){
+			location.href="controller?type=reservationOk";
+		}
+		else{
+			return;
+		}
+	}
+	$(function(){
+	})
+	function calculate(){
+	}
+</script>
 </head>
 <body>
+<form action="reserveOk(this.form)">
 <table>
 	<tr>
 		<td colspan="2">
@@ -61,10 +87,12 @@
 		<th>테마</th><td>${roomTable.room_theme }</td>
 	</tr>
 	<tr>
-		<td>예약가능일</td>
+		<th>예약가능일</th>
 		<td>
-			<select var="ableDate" items="">  
+			<font>체크인</font>
+			<select id="s_date" onchange="calculate()">  
 <%
+				//이번달
 		        for(int i=startDate; i<=lastday; i++){
 		        	nowDate = year + "-" + mon + "-" + i;
 		        	if(!enableDateList.contains(nowDate)){
@@ -74,11 +102,65 @@
 		     	  	};
 		        };
 		        
+		        //다음달
+		        for(int i=firstday; i<=lastday2; i++){
+		        	nowDate = year2 + "-" + mon2 + "-" + i;
+		        	if(!enableDateList.contains(nowDate)){
 %>
-			</select>
+						<option><%=nowDate %></option>
+<%
+		     	  	};
+		        };
+%>
+			</select><br>
+			
+			<font>체크아웃</font>
+			<!--
+			체크아웃 날짜는 체크인 날짜 이후여야 하고
+			체크아웃 날짜는 예약이 가능해야 하지만 아직 구현되지 않음
+			-->
+			<select id="e_date" onchange="calculate()">  
+<%
+				//이번달
+		        for(int i=startDate; i<=lastday; i++){
+		        	nowDate = year + "-" + mon + "-" + i;
+		        	if(!enableDateList.contains(nowDate)){
+%>
+						<option><%=nowDate %></option>
+<%
+		     	  	};
+		        };
+		        
+		        //다음달
+		        for(int i=firstday; i<=lastday2; i++){
+		        	nowDate = year2 + "-" + mon2 + "-" + i;
+		        	if(!enableDateList.contains(nowDate)){
+%>
+						<option><%=nowDate %></option>
+<%
+		     	  	};
+		        };
+%>
+			</select><br>
 		</td>
 	</tr>
+	<tr>
+		<th>숙박인원</th>
+		<td>
+			<input type="number" name="pax" min="1" max="${roomTable.max_pax }"><br>
+			(최대인원 : ${roomTable.max_pax }명)
+		</td>
+	</tr>
+	<tr>
+		<th>숙박료</th>
+		<td id="cost">
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2"><input type="submit"></td>
+	</tr>
 </table>
-
+</form>
 </body>
 </html>
