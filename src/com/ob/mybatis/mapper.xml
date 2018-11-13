@@ -139,7 +139,12 @@
 		   	   E_CONFIRM = #{e_confirm}, TEL = #{tel}
 		 WHERE ID = #{id}
 	</update>
-
+	
+	<!-- 중복 아이디 조회 -->
+	<select id="dupIdChk" resultType="com.ob.vo.UserVO" parameterType="String">
+		SELECT ACCOUNT FROM OBHOTEL_USER WHERE ACCOUNT = #{account}
+	</select>
+	
 	<!-- ****** 공지사항 ************************************************** -->
 	<select id="noticeTotalCount" resultType="int">
 		SELECT COUNT(ID) FROM
