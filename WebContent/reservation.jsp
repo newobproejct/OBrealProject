@@ -4,34 +4,7 @@
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-<%				
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	Calendar cal = Calendar.getInstance();
-	
-	//이번달
-	int year = cal.get(Calendar.YEAR);
-    int mon = cal.get(Calendar.MONTH)+1;
-    int day = cal.get(Calendar.DAY_OF_MONTH);
-    System.out.println("day:" + day);
-    int startDate = day;
-    int firstday = 1;
-    int lastday = cal.getActualMaximum(Calendar.DATE);
-    
-    //다음달
-    cal.set(year, mon, day);
-	int year2 = cal.get(Calendar.YEAR);
-    int mon2 = cal.get(Calendar.MONTH)+1;
-    int day2 = cal.get(Calendar.DATE);
-    int startDate2 = startDate;
-    int lastday2 = cal.getActualMaximum(Calendar.DATE);
-    
-    List<String> enableDateList = (List<String>)request.getAttribute("dates");
-    System.out.println("enableDateList : " + enableDateList);
-    String nowDate="";
-%>		      
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -40,13 +13,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>예약하기</title>
 <script>
+	//이번달 변수
+	var today = new Date();
+	alert(today);
+	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+	var year = today.getFullYear();
+	var mon = today.getMonth();
+	var day = today.getDate();
+	var startDate = today;
+	var startDate2 = today;
+	var firstday = new Date(today.getFullYear(), today.getMonth(), 1);
+	var lastday = new Date(today.getFullYear(), today.getMonth()+1, 0);
+	alert("today : " + today + "\n" + 
+			"year : " + year + "\n" + 
+			"mon : " + mon + "\n" + 
+			"day : " + day + "\n" + 
+			"startDate : " + startDate + "\n" + 
+			"firstday : " + firstday + "\n" + 
+			"lastday : " + lastday);
+</script>
+
+<script>
 	function reserveOk(frm){
 		alert("reserveOk실행");
-		frm.action="controller?type=reserveOk";
+		frm.action="controller?type=reservationOk";
 		frm.submit();
 	}
 	function setVal(val){
-		alert("val");
+		alert(val);
+		var sd = val;
+ 		var temp ='<span>체크아웃</span>';
+	   	temp += '<select id="e_date" >';
+		temp += '<c:forEach var="ed" items="${enableDates}">';
+		temp += '<c:if test="${ed>=sd}">';
+		temp += '<option>${ed }</option>';
+		temp += '</c:if>';
+		temp += '</c:forEach>';
+		temp += '</select>'; 
+		alert(temp);
+		document.getElementById("checkout").innerHTML=temp;
 	}
 </script>
 </head>
@@ -87,58 +92,21 @@
 		<th>예약가능일</th>
 		<td>
 			<font>체크인</font>
-			<select id="s_date" onchange="setVal(this.value)"> 
-<%
-				//이번달
-		        for(int i=startDate; i<=lastday; i++){
-		        	nowDate = year + "-" + mon + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-		        
-		        //다음달
-		        for(int i=firstday; i<=lastday2; i++){
-		        	nowDate = year2 + "-" + mon2 + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-%>
-			</select><br>
+			<div id="checkin">
+				<select id="s_date" onchange="setVal(this.value)"> 
+					<c:forEach var="ed" items="${enableDates}">
+						<option>${ed }</option>
+					</c:forEach>
+				</select>
+			</div>
 			
-			<font>체크아웃</font>
+			
 			<!--
 			체크아웃 날짜는 체크인 날짜 이후여야 하고
 			체크아웃 날짜는 예약이 가능해야 하지만 아직 구현되지 않음
 			-->
-			<select id="e_date">  
-<%
-				//이번달
-		        for(int i=startDate2; i<=lastday; i++){
-		        	nowDate = year + "-" + mon + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-		        
-		        //다음달
-		        for(int i=firstday; i<=lastday2; i++){
-		        	nowDate = year2 + "-" + mon2 + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-%>
-			</select><br>
+			<div id="checkout">
+			</div>
 		</td>
 	</tr>
 	<tr>

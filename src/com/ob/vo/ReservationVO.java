@@ -3,7 +3,7 @@ package com.ob.vo;
 public class ReservationVO {
 	String id, user_id, room_id, s_date, e_date, r_date, pax, review_id
 		  ,account, nickname
-		  ,room_name, room_type_id, room_type
+		  ,room_name, room_type_id, room_type, filename
 		  ,room_num, room_content, room_address1, room_address2, room_theme
 		  ,max_pax, cost;
 	
@@ -26,7 +26,7 @@ public class ReservationVO {
 
 	public ReservationVO(String id, String user_id, String room_id, String s_date, String e_date, String r_date,
 			String pax, String review_id, String account, String nickname, String room_name, String room_type_id,
-			String room_type, String room_num, String room_content, String room_address1, String room_address2,
+			String room_type, String filename, String room_num, String room_content, String room_address1, String room_address2,
 			String room_theme, String max_pax, String cost) {
 		super();
 		this.id = id;
@@ -42,6 +42,7 @@ public class ReservationVO {
 		this.room_name = room_name;
 		this.room_type_id = room_type_id;
 		this.room_type = room_type;
+		this.filename = filename;
 		this.room_num = room_num;
 		this.room_content = room_content;
 		this.room_address1 = room_address1;
@@ -49,6 +50,22 @@ public class ReservationVO {
 		this.room_theme = room_theme;
 		this.max_pax = max_pax;
 		this.cost = cost;
+	}
+
+	public String getReview_id() {
+		return review_id;
+	}
+
+	public void setReview_id(String review_id) {
+		this.review_id = review_id;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getAccount() {
@@ -216,10 +233,9 @@ public class ReservationVO {
 		return "ReservationVO [id=" + id + ", user_id=" + user_id + ", room_id=" + room_id + ", s_date=" + s_date
 				+ ", e_date=" + e_date + ", r_date=" + r_date + ", pax=" + pax + ", review_id=" + review_id
 				+ ", account=" + account + ", nickname=" + nickname + ", room_name=" + room_name + ", room_type_id="
-				+ room_type_id + ", room_type=" + room_type + ", room_num=" + room_num + ", room_content="
-				+ room_content + ", room_address1=" + room_address1 + ", room_address2=" + room_address2
-				+ ", room_theme=" + room_theme + ", max_pax=" + max_pax + ", cost=" + cost + "]";
+				+ room_type_id + ", room_type=" + room_type + ", filename=" + filename + ", room_num=" + room_num
+				+ ", room_content=" + room_content + ", room_address1=" + room_address1 + ", room_address2="
+				+ room_address2 + ", room_theme=" + room_theme + ", max_pax=" + max_pax + ", cost=" + cost + "]";
 	}
-
 	
 }

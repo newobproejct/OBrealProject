@@ -20,7 +20,7 @@ public class ReservationChkCommand implements Command {
 		
 		uvo.getId();
 		rvo.getId();
-		return null;
+		return "main.jsp";
 	}
 
 }

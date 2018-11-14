@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>HEADER</title>
 <link href="./css/plus.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 	
 	.hidden{

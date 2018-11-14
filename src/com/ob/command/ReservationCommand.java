@@ -84,10 +84,55 @@ public class ReservationCommand implements Command {
 		}
 		
 		System.out.println("dates : " + dates);
-		
 		request.setAttribute("dates", dates);
 		request.setAttribute("roomTable", roomTable);
 		System.out.println("roomTable : " + roomTable);
+		
+		/* **********************************************************/
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal2 = Calendar.getInstance();
+		String nowDate="";
+		List<String> enableDates = new ArrayList<>(); 
+				
+		//이번달
+		int year = cal2.get(Calendar.YEAR);
+	    int mon = cal2.get(Calendar.MONTH)+1;
+	    int day = cal2.get(Calendar.DAY_OF_MONTH);
+	    System.out.println("day:" + day);
+	    int startDate = day;
+	    int firstday = 1;
+	    int lastday = cal.getActualMaximum(Calendar.DATE);
+	    
+	    //다음달
+	    cal.set(year, mon, day);
+		int year2 = cal.get(Calendar.YEAR);
+	    int mon2 = cal.get(Calendar.MONTH)+1;
+	    int day2 = cal.get(Calendar.DATE);
+	    int startDate2 = startDate;
+	    int lastday2 = cal.getActualMaximum(Calendar.DATE);
+		
+
+	    
+	    //이번달 처리
+	    for(int i=startDate; i<=lastday; i++){
+        	nowDate = year + "-" + mon + "-" + i;
+        	if(!dates.contains(nowDate)){
+        		enableDates.add(nowDate);
+     	  	};
+        };
+        
+        //다음달 처리
+        for(int i=firstday; i<=lastday2; i++){
+        	nowDate = year2 + "-" + mon2 + "-" + i;
+        	if(!dates.contains(nowDate)){
+        		enableDates.add(nowDate);
+     	  	};
+        };
+        
+        System.out.println("enableDates: " + enableDates);
+        request.setAttribute("enableDates", enableDates);
+        
 		return "reservation.jsp";
 	}
 
