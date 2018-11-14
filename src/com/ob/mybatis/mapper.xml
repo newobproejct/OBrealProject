@@ -387,7 +387,7 @@
 	<select id="getRoomTableByRid" resultType="com.ob.vo.RoomTABLEVO"
 		parameterType="String">
 		SELECT *
-		  FROM (SELECT ROWNUM R_NUM, R.ID, R.ROOM_TYPE_ID
+		  FROM (SELECT ROWNUM R_NUM, R.ID ROOM_ID, R.ROOM_TYPE_ID
 		              ,ROOM_NAME,ROOM_NUM,ROOM_CONTENT ,ROOM_ADDRESS1,ROOM_ADDRESS2
 		              ,ROOM_THEME,F.ID FILE_ID, FILENAME,ROOM_TYPE, T.ID TYPE_ID, MAX_PAX,COST
 		          FROM OBHOTEL_ROOM R
@@ -399,4 +399,9 @@
 		 WHERE R_NUM=1
 	</select>
 
+	<!-- (예약용) 예약정보 DB에 insert -->
+	<insert id="insertReservation" parameterType="com.ob.vo.ReservationVO">
+		INSERT INTO OBHOTEL_RESERVATION (ID, USER_ID, ROOM_ID, S_DATE, E_DATE, R_DATE, PAX, REVIEW_ID, TOTAL_COST)
+			VALUES (OBHOTEL_RESERVATION_SEQ.NEXTVAL, #{user_id}, #{room_id}, #{s_date}, #{e_date}, SYSDATE, #{pax}, 0, #{total_cost})
+	</insert>
 </mapper>

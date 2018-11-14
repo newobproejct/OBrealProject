@@ -15,7 +15,6 @@
 <script>
 	//이번달 변수
 	var today = new Date();
-	alert(today);
 	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 	var year = today.getFullYear();
 	var mon = today.getMonth();
@@ -24,52 +23,71 @@
 	var startDate2 = today;
 	var firstday = new Date(today.getFullYear(), today.getMonth(), 1);
 	var lastday = new Date(today.getFullYear(), today.getMonth()+1, 0);
-	alert("today : " + today + "\n" + 
-			"year : " + year + "\n" + 
-			"mon : " + mon + "\n" + 
-			"day : " + day + "\n" + 
-			"startDate : " + startDate + "\n" + 
-			"firstday : " + firstday + "\n" + 
-			"lastday : " + lastday);
+	
+	var sd ="";
 </script>
 
 <script>
 	function reserveOk(frm){
-		alert("reserveOk실행");
-		frm.action="controller?type=reservationOk";
-		frm.submit();
+		var ok = confirm("예약하시겠습니까?");
+		if(ok==true){
+			frm.action="controller?type=reservationOk&total_cost=";
+			frm.submit();
+		}
+		else{
+			return;
+		}
 	}
 	function toDate(dateStr) {
 		var parts = dateStr.split("-")
 	  	return new Date(parts[2], parts[1]-1, parts[0])
 	}
+	function dateDiff(_date1, _date2) {
+	    var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
+	    var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+	 
+	    diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1.getMonth()+1, diffDate_1.getDate());
+	    diffDate_2 = new Date(diffDate_2.getFullYear(), diffDate_2.getMonth()+1, diffDate_2.getDate());
+	 
+	    var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+	    diff = Math.ceil(diff / (1000 * 3600 * 24));
+	 
+	    return diff;
+	}
 	function setVal(val){
-		alert(val);
-		var sd = val;
+		sd = val;
  		var temp ='<span>체크아웃</span>';
  		var nsd = new Date();
  		var ned = new Date();
-	   	temp += '<select id="e_date">';
-	   	
+	   	temp += '<select id="e_date" onchange="setVal2(this.value)"  name="e_date">';
 		//temp += '<c:forEach var="ed" items="${enableDates}">';
 		//temp += '<c:if test="${ed>=sd}">';
 		//temp += '<option>${ed }1</option>';
 		//temp += '</c:if>';
 		//temp += '</c:forEach>';
 		<c:forEach var = "ed" items = "${enableDates}">
-				var date = "${ed}";
-				nsd = toDate(sd);
-				ned = toDate(date);
-				console.log("nsd : " + nsd + "ned : " + ned);
-				if(nsd<=ned){
-					temp += '<option>${ed}</option>';
-				}		
+			var date = "${ed}";
+			
+			console.log("sd : " + sd + "date : " + date);
+			
+			nsd = toDate(sd);
+			ned = toDate(date);
+			console.log("nsd : " + nsd + "ned : " + ned);
+			if(nsd<=ned){
+				temp += '<option>${ed}</option>';
+			}		
 		</c:forEach>
 		
 		temp += '</select>'; 
-		alert(temp);
 		console.log(temp);
 		document.getElementById("checkout").innerHTML=temp;
+	}
+	function setVal2(val){
+		var diff = dateDiff(sd,val);
+		var cost = diff * ${roomTable.cost * 1000};
+		var temp2 = cost + '원';
+		document.getElementById("cost").innerHTML=temp2;
+		document.getElementById("total_cost").value=cost;
 	}
 </script>
 </head>
@@ -95,7 +113,7 @@
 		<th>타입</th><td>${roomTable.room_type }</td>
 	</tr>
 	<tr>
-		<th>숙박가격(1일)</th><td>${roomTable.cost }(단위:천원)</td>
+		<th>숙박가격(1일)</th><td>${roomTable.cost * 1000 }원</td>
 	</tr>
 	<tr>
 		<th>최대인원</th><td>${roomTable.max_pax }명</td>
@@ -111,7 +129,7 @@
 		<td>
 			<font>체크인</font>
 			<div id="checkin">
-				<select id="s_date" onchange="setVal(this.value)"> 
+				<select id="s_date" onchange="setVal(this.value)" name="s_date"> 
 					<c:forEach var="ed" items="${enableDates}">
 						<option>${ed }</option>
 					</c:forEach>
@@ -136,7 +154,8 @@
 	</tr>
 	<tr>
 		<th>숙박료</th>
-		<td id="cost">
+		<td><div id="cost"></div>
+			<input type="text" id="total_cost" name="total_cost" >
 		</td>
 	</tr>
 	
