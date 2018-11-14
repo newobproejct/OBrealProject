@@ -6,10 +6,22 @@ public class ReservationVO {
 		  ,room_name, room_type_id, room_type
 		  ,room_num, room_content, room_address1, room_address2, room_theme
 		  ,max_pax, cost;
-
 	
 	public ReservationVO() {
 		super();
+	}
+
+	public ReservationVO(String id, String user_id, String room_id, String s_date, String e_date, String r_date,
+			String pax, String review_id) {
+		super();
+		this.id = id;
+		this.user_id = user_id;
+		this.room_id = room_id;
+		this.s_date = s_date;
+		this.e_date = e_date;
+		this.r_date = r_date;
+		this.pax = pax;
+		this.review_id = review_id;
 	}
 
 	public ReservationVO(String id, String user_id, String room_id, String s_date, String e_date, String r_date,

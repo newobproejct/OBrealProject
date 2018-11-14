@@ -392,4 +392,29 @@
 		select distinct room_address1, room_address2 from obhotel_room order by room_address1
 	</select>
 
+	<!-- (예약용) room_id로 reservation 조회 -->
+	<select id="getResByRid" resultType="com.ob.vo.ReservationVO"
+		parameterType="String">
+		SELECT *
+		  FROM OBHOTEL_RESERVATION
+		 WHERE ROOM_ID = #{room_id}
+		   AND SYSDATE &lt; S_DATE
+	</select>
+	
+	<!-- (예약용) room_id로 방 전체정보 조회 -->
+	<select id="getRoomTableByRid" resultType="com.ob.vo.RoomTABLEVO"
+		parameterType="String">
+		SELECT *
+		  FROM (SELECT ROWNUM R_NUM, R.ID, R.ROOM_TYPE_ID
+		              ,ROOM_NAME,ROOM_NUM,ROOM_CONTENT ,ROOM_ADDRESS1,ROOM_ADDRESS2
+		              ,ROOM_THEME,F.ID FILE_ID, FILENAME,ROOM_TYPE, T.ID TYPE_ID, MAX_PAX,COST
+		          FROM OBHOTEL_ROOM R
+		              ,OBHOTEL_ROOM_FILE F
+		              ,OBHOTEL_ROOM_TYPE T
+		         WHERE R.ID = #{room_id}
+		           AND R.ROOM_TYPE_ID = T.ID
+		           AND R.ROOM_TYPE_ID = F.ROOM_TYPE_ID)
+		 WHERE R_NUM=1
+	</select>
+
 </mapper>

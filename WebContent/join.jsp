@@ -90,7 +90,7 @@
 					<input type="text" name="tel" placeholder="휴대폰번호"><br><br>
 					
 					<label>주소</label>
-					<input type="text" name="zipcode" id="zipcode" placeholder="우편번호" size="15"><br>
+					<input type="text" name="zipcode" id="zipcode" placeholder="우편번호" maxlength="6"><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" id="roadaddress" placeholder="예) 서울특별시"><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="detail" placeholder="예) 마포구 백범로..."><br><br>		
 					

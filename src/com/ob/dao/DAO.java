@@ -225,4 +225,16 @@ public class DAO {
 
 		return getSql().selectList("get_Address");
 	}
+	
+	//(예약용) room_id로 예약조회
+	public static List<ReservationVO> getResByRid(String room_id) {
+		return getSql().selectList("getResByRid",room_id);
+	}
+	
+	//(예약용) room_id로 방 상세정보 조회
+	public static RoomTABLEVO getRoomTableByRid(String room_id) {
+		return getSql().selectOne("getRoomTableByRid",room_id);
+	}
+	
+	
 }

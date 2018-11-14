@@ -64,7 +64,9 @@ public class SearchThemeCommand implements Command {
 		System.out.println(list);
 		// request.getSession().setAttribute("getRoomimp", list);
 		request.getSession().setAttribute("pvo", p);
+		request.setAttribute("cPage", cPage);
 		request.getSession().setAttribute("getRoomthemeimp", list);
+		
 		request.getSession().setAttribute("chk_theme", chk_theme);
 		return "themelist.jsp";
 	}
