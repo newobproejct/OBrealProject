@@ -9,7 +9,6 @@ public class ReservationListCommand implements Command {
 
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		return "revList.jsp";
 	}
 
