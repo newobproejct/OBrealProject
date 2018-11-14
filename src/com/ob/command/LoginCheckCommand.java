@@ -46,10 +46,12 @@ public class LoginCheckCommand implements Command {
 			request.getSession().setAttribute("account", account);	
 			request.getSession().setAttribute("uservo", uvo);
 			
-			List userResList =  DAO.getUserReservation(uvo);
+			List userResList = DAO.getUserReservation(uvo);
 			System.out.println(userResList);
 			
-			request.getSession().setAttribute("userReservationvo",userResList);
+			request.getSession().setAttribute("userReservationvo", userResList);
+			
+			
 			
 			//--김재현 추가부분
 			//--> 유저 고유 id 번호에 대한 boardplusVO 리스트로 전체 보기
