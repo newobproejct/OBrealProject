@@ -30,8 +30,8 @@ public class DAO {
 	}
 	
 	//로그인 한 유저의 예약기록 전체 조회
-	public static List<ReservationVO> getUserReservation(String id) {
-		return getSql().selectList("getUserReservation", id);
+	public static List<ReservationVO> getUserReservation(UserVO uvo) {
+		return getSql().selectList("getUserReservation", uvo);
 	}
 	
 	// 회원가입 insert

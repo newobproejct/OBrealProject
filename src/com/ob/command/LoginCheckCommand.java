@@ -46,7 +46,7 @@ public class LoginCheckCommand implements Command {
 			request.getSession().setAttribute("account", account);	
 			request.getSession().setAttribute("uservo", uvo);
 			
-			List userResList =  DAO.getUserReservation(uvo.getId());
+			List userResList =  DAO.getUserReservation(uvo);
 			System.out.println(userResList);
 			
 			request.getSession().setAttribute("userReservationvo",userResList);

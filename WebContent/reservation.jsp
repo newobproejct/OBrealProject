@@ -24,6 +24,7 @@
 	int year2 = cal.get(Calendar.YEAR);
     int mon2 = cal.get(Calendar.MONTH)+1;
     int day2 = cal.get(Calendar.DATE);
+    int startDate2 = startDate;
     int lastday2 = cal.getActualMaximum(Calendar.DATE);
     
     List<String> enableDateList = (List<String>)request.getAttribute("dates");
@@ -35,26 +36,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>예약하기</title>
 <script>
 	function reserveOk(frm){
-		var ok = confirm("예약하시겠습니까?")
-		if(ok==true){
-			location.href="controller?type=reservationOk";
-		}
-		else{
-			return;
-		}
+		alert("reserveOk실행");
+		frm.action="controller?type=reserveOk";
+		frm.submit();
 	}
-	$(function(){
-	})
-	function calculate(){
+	function setVal(val){
+		alert("val");
 	}
 </script>
 </head>
 <body>
-<form action="reserveOk(this.form)">
+<form method="post">
 <table>
 	<tr>
 		<td colspan="2">
@@ -90,7 +87,7 @@
 		<th>예약가능일</th>
 		<td>
 			<font>체크인</font>
-			<select id="s_date" onchange="calculate()">  
+			<select id="s_date" onchange="setVal(this.value)"> 
 <%
 				//이번달
 		        for(int i=startDate; i<=lastday; i++){
@@ -119,10 +116,10 @@
 			체크아웃 날짜는 체크인 날짜 이후여야 하고
 			체크아웃 날짜는 예약이 가능해야 하지만 아직 구현되지 않음
 			-->
-			<select id="e_date" onchange="calculate()">  
+			<select id="e_date">  
 <%
 				//이번달
-		        for(int i=startDate; i<=lastday; i++){
+		        for(int i=startDate2; i<=lastday; i++){
 		        	nowDate = year + "-" + mon + "-" + i;
 		        	if(!enableDateList.contains(nowDate)){
 %>
@@ -147,7 +144,7 @@
 	<tr>
 		<th>숙박인원</th>
 		<td>
-			<input type="number" name="pax" min="1" max="${roomTable.max_pax }"><br>
+			<input type="number" name="pax" min="1" max="${roomTable.max_pax }" value="1"><br>
 			(최대인원 : ${roomTable.max_pax }명)
 		</td>
 	</tr>
@@ -158,7 +155,7 @@
 	</tr>
 	
 	<tr>
-		<td colspan="2"><input type="submit"></td>
+		<td colspan="2"><input type="button" onclick="reserveOk(this.form)" value="예약하기"></td>
 	</tr>
 </table>
 </form>
