@@ -39,6 +39,7 @@ import com.ob.command.PremiumWriteRightChkCommand;
 import com.ob.command.QueCommand;
 import com.ob.command.QueWriteCommand;
 import com.ob.command.ReservationCommand;
+import com.ob.command.ReservationListCommand;
 import com.ob.command.ReservationOkCommand;
 import com.ob.command.SearchCommand;
 import com.ob.command.SearchListCommand;
@@ -155,6 +156,8 @@ public class Controller extends HttpServlet {
 			comm = new MypageModiActCommand();
 		} else if (type.equals("reservation")) {
 			comm =new ReservationCommand();
+		} else if (type.equals("revList")) {
+			comm =new ReservationListCommand();
 		} else if (type.equals("reservationOk")) {
 			comm =new ReservationOkCommand();
 		}
