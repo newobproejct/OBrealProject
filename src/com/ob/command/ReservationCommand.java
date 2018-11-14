@@ -85,7 +85,7 @@ public class ReservationCommand implements Command {
 		
 		System.out.println("dates : " + dates);
 		request.setAttribute("dates", dates);
-		request.setAttribute("roomTable", roomTable);
+		request.getSession().setAttribute("roomTable", roomTable);
 		System.out.println("roomTable : " + roomTable);
 		
 		/* **********************************************************/

@@ -216,5 +216,9 @@ public class DAO {
 		return getSql().selectOne("getRoomTableByRid",room_id);
 	}
 	
-	
+	//(예약용) 예약정보 DB insert
+	public static int insertReservation(ReservationVO resvo) {
+		return getSql().insert("insertReservation", resvo);
+	}
+ 	
 }
