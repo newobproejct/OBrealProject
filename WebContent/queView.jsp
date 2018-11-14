@@ -45,7 +45,7 @@
 			frm.action="controller?type=quedelete&board_type=3&id=${BPVO.id}";
 			frm.submit();		
 		} else {
-			alert="삭제취소 되었습니다."
+		alert("취소되었습니다.");c
 		}
 	}
 	
@@ -55,7 +55,7 @@
 		}
 	
 	 function sendData_go(frm) {
-			frm.action="controller?type=que&board_type=3&id=${BPLYVO.id}";
+			frm.action="controller?type=queComments&board_type=3&id=${BPLYVO.id}";
 	}
  
 </script>
@@ -117,10 +117,10 @@
 				<form method="post">
 					<p>ID : <input type="text" name="writer"></p>
 					<p>내용 : <textarea name="content" rows="4" cols="55"></textarea>
-					<input type="submit" value="댓글저장" onclick= "sendData_go(this.form)">
+					<input type="button" value="댓글저장" onclick= "sendData_go(this.form)">
 					
-					<input type="hidden" name="write_chk" id="chk">
-					<input type="hidden" name="delete_id" value="${BPLYVO.id}"> 
+					<%-- <input type="hidden" name="writer" id="chk">
+					<input type="hidden" name="id" value="${BPLYVO.id}">  --%>
 				</form>
 				
 				<hr>

@@ -1,8 +1,8 @@
 package com.ob.vo;
 
 public class RoomTABLEVO {
-	String r_num, room_id, room_name, room_num, room_content, room_address1, room_address2, room_theme, file_id, filename, type_id,
-			room_type, max_pax, cost;
+	String r_num, room_id, room_name, room_num,room_type_id, room_content, room_address1, room_address2, room_theme, room_type,file_id, filename, type_id,
+			 max_pax, cost;
 	
 	
 
@@ -12,22 +12,23 @@ public class RoomTABLEVO {
 
 
 
-	public RoomTABLEVO(String r_num, String room_id, String room_name, String room_num, String room_content,
-			String room_address1, String room_address2, String room_theme, String file_id, String filename,
-			String type_id, String room_type, String max_pax, String cost) {
+	public RoomTABLEVO(String r_num, String room_id, String room_name, String room_num, String room_type_id,
+			String room_content, String room_address1, String room_address2, String room_theme, String room_type,
+			String file_id, String filename, String type_id, String max_pax, String cost) {
 		super();
 		this.r_num = r_num;
 		this.room_id = room_id;
 		this.room_name = room_name;
 		this.room_num = room_num;
+		this.room_type_id = room_type_id;
 		this.room_content = room_content;
 		this.room_address1 = room_address1;
 		this.room_address2 = room_address2;
 		this.room_theme = room_theme;
+		this.room_type = room_type;
 		this.file_id = file_id;
 		this.filename = filename;
 		this.type_id = type_id;
-		this.room_type = room_type;
 		this.max_pax = max_pax;
 		this.cost = cost;
 	}
@@ -82,6 +83,18 @@ public class RoomTABLEVO {
 
 
 
+	public String getRoom_type_id() {
+		return room_type_id;
+	}
+
+
+
+	public void setRoom_type_id(String room_type_id) {
+		this.room_type_id = room_type_id;
+	}
+
+
+
 	public String getRoom_content() {
 		return room_content;
 	}
@@ -130,6 +143,18 @@ public class RoomTABLEVO {
 
 
 
+	public String getRoom_type() {
+		return room_type;
+	}
+
+
+
+	public void setRoom_type(String room_type) {
+		this.room_type = room_type;
+	}
+
+
+
 	public String getFile_id() {
 		return file_id;
 	}
@@ -166,18 +191,6 @@ public class RoomTABLEVO {
 
 
 
-	public String getRoom_type() {
-		return room_type;
-	}
-
-
-
-	public void setRoom_type(String room_type) {
-		this.room_type = room_type;
-	}
-
-
-
 	public String getMax_pax() {
 		return max_pax;
 	}
@@ -205,10 +218,12 @@ public class RoomTABLEVO {
 	@Override
 	public String toString() {
 		return "RoomTABLEVO [r_num=" + r_num + ", room_id=" + room_id + ", room_name=" + room_name + ", room_num="
-				+ room_num + ", room_content=" + room_content + ", room_address1=" + room_address1 + ", room_address2="
-				+ room_address2 + ", room_theme=" + room_theme + ", file_id=" + file_id + ", filename=" + filename
-				+ ", type_id=" + type_id + ", room_type=" + room_type + ", max_pax=" + max_pax + ", cost=" + cost + "]";
+				+ room_num + ", room_type_id=" + room_type_id + ", room_content=" + room_content + ", room_address1="
+				+ room_address1 + ", room_address2=" + room_address2 + ", room_theme=" + room_theme + ", room_type="
+				+ room_type + ", file_id=" + file_id + ", filename=" + filename + ", type_id=" + type_id + ", max_pax="
+				+ max_pax + ", cost=" + cost + "]";
 	}
+
 	
 
 }

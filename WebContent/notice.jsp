@@ -109,7 +109,7 @@ nav a {
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4">
+							<td colspan="5">
 								<ol class="paging">
 									<%-- [이전으로]에 대한 사용 여부를 처리 --%>
 									<c:choose>
@@ -156,10 +156,11 @@ nav a {
 										</c:otherwise>
 									</c:choose>
 								</ol>
-							</td>
-
-							<td><input type="button" value="작성하기" onclick="javascript:location.href='controller?type=noticeWrite&board_type=1'"></td>
-						</tr>
+							<c:if test="${sessionScope.uservo.getAccount() == 'admin' }">
+							<input type="button" value="작성하기" onclick="javascript:location.href='controller?type=noticeWrite&board_type=1'">							
+							</c:if>
+							<c:if test="${sessionScope.uservo.getAccount() != 'admin' }">							
+							</c:if>						
 					</tfoot>
 				</table>
 			</div>

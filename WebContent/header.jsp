@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>HEADER</title>
 <link href="./css/plus.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 	
 	.hidden{
@@ -64,34 +63,36 @@
 						<li><a href="controller?type=que&board_type=3">문의사항</a></li>
 						<li><a href="controller?type=premium&board_type=4">프리미엄 후기</a></li>
 						<li><a href="controller?type=agree">약관 및 동의사항</a></li>
-<!-- <<<<<<< HEAD -->
-<!-- 					</ul></li> -->
-<%-- 				<c:if test="${empty sessionScope.uservo}"> --%>
-<!-- 				<li id="login"><a href="controller?type=login">로그인</a></li> -->
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${not empty sessionScope.uservo}"> --%>
-<%-- 				<li id="logout"><a href="controller?type=logout">로그아웃 </a><p id="user">(${sessionScope.uservo.getAccount()}님 반갑습니다.)</p></li> --%>
-<!-- 				<li id="myPage"><a href="controller?type=myPage">마이페이지</a></li>				 -->
-<!-- ======= -->
+					</ul></li>
+				<c:if test="${empty sessionScope.uservo}">
+				<li id="login"><a href="controller?type=login">로그인</a></li>
+				</c:if>
+				<c:if test="${sessionScope.uservo.getAccount() == 'admin'}">
+				<li id="manage"><a href="controller?type=admin_system">관리자</a></li>
+				</c:if>
+				<c:if test="${not empty sessionScope.uservo}">
+				<li id="logout"><a href="controller?type=logout">로그아웃 </a><p id="user">(${sessionScope.uservo.getAccount()}님 반갑습니다.)</p></li>
+				<li id="myPage"><a href="controller?type=myPage">마이페이지</a></li>				
+				</c:if>
 					</ul>
-				</li>
-				<c:if test="${uservo==null }">
-					<li id="login"><a href="controller?type=login">로그인</a></li>
-				</c:if>
-				<c:if test="${uservo!=null }">
-					<li id="myPage">
-					<div id="myPageDiv"><a href="controller?type=myPage">마이페이지</a>
-						<div id="myPageList">
-							<ul>
-								<li>내 정보변경</li>
-								<li>내 예약(숙박)내역</li>
-								<li><a href="controller?type=logout">로그아웃</a></li>
-							</ul>
-						</div>
-					</div>
-					</li>
-				</c:if>
-			</ul>
+<!-- 				</li> -->
+<%-- 				<c:if test="${uservo==null }"> --%>
+<!-- 					<li id="login"><a href="controller?type=login">로그인</a></li> -->
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${uservo!=null }"> --%>
+<!-- 					<li id="myPage"> -->
+<!-- 					<div id="myPageDiv"><a href="controller?type=myPage">마이페이지</a> -->
+<!-- 						<div id="myPageList"> -->
+<!-- 							<ul> -->
+<!-- 								<li>내 정보변경</li> -->
+<!-- 								<li>내 예약(숙박)내역</li> -->
+<!-- 								<li><a href="controller?type=logout">로그아웃</a></li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					</li> -->
+<%-- 				</c:if> --%>
+<!-- 			</ul> -->
 		</div>
 	</div>
 </body>

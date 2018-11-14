@@ -139,7 +139,12 @@
 		   	   E_CONFIRM = #{e_confirm}, TEL = #{tel}
 		 WHERE ID = #{id}
 	</update>
-
+	
+	<!-- 중복 아이디 조회 -->
+	<select id="dupIdChk" resultType="com.ob.vo.UserVO" parameterType="String">
+		SELECT ACCOUNT FROM OBHOTEL_USER WHERE ACCOUNT = #{account}
+	</select>
+	
 	<!-- ****** 공지사항 ************************************************** -->
 	<select id="noticeTotalCount" resultType="int">
 		SELECT COUNT(ID) FROM
@@ -338,7 +343,7 @@
 	<select id="get_room" resultType="com.ob.vo.RoomTABLEVO"
 		parameterType="map">
 		select *
-		  from (select rownum r_num, r.room_type_id
+		  from (select rownum r_num,r.id room_id, r.room_type_id
 		              ,room_name,room_num,room_content ,room_address1,room_address2
 		              ,room_theme,filename,room_type,max_pax,cost
 		          from obhotel_room r
@@ -368,7 +373,7 @@
 
 	<select id="get_Roomtheme" resultType="com.ob.vo.RoomTABLEVO"
 		parameterType="map">
-		select * from (select ROWNUM R_NUM, r.room_type_id
+		select * from (select ROWNUM R_NUM,r.id room_id, r.room_type_id
 		,room_name,room_num,room_content ,room_address1,room_address2,
 		room_theme,
 		filename,room_type,max_pax,cost from obhotel_room r
@@ -388,4 +393,3 @@
 	</select>
 
 </mapper>
-
