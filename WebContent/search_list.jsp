@@ -131,7 +131,7 @@
 									<input type="hidden" name="room_address1" value="${roomlist.room_address1}"> 
 									<input type="hidden" name="room_address2" value="${roomlist.room_address2}"> 
 									<input type="hidden" name="room_theme" value="${roomlist.room_theme }"> 
-									
+									<input tupe="hidden" name="room_img" value="${roomlist.filename}">
 								</c:forEach>
 							</form>
 						</c:otherwise>
