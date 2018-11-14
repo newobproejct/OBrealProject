@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ob.dao.DAO;
 import com.ob.vo.BoardplusVO;
 
-public class queModiCommand implements Command {
+public class QueModiCommand implements Command {
 
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {

@@ -197,7 +197,7 @@
 
 	<!-- ********문의사항 게시판********* -->
 
-	<!-- 게시문 보기 셀렉문 -->
+	<!-- 문의사항보기 -->
 	<select id="queSelOne" resultType="com.ob.vo.BoardplusVO">
 		SELECT * FROM OBHOTEL_BOARD
 		WHERE ID = #{id}
@@ -243,16 +243,27 @@
 		#{id}
 	</update>
 	
+	<!-- 문의사항 삭제 -->
+	<delete id="queDel" parameterType="String">
+		DELETE FROM OBHOTEL_BOARD
+		WHERE ID = #{id}
+	</delete>
+	
 	<!-- 문의사항 댓글 입력(COMMENT) -->
-	<insert id="que_comment" parameterType="com.ob.vo.BoardreplyVO">
-		INSERT INTO 
-		OBHOTEL_BOARD_REPLY 
+	<insert id="queCommentsInsert" parameterType="com.ob.vo.BoardreplyVO">
+		INSERT INTO OBHOTEL_BOARD_REPLY 
 		(ID, BOARD_ID, USER_ID, CONTENT, WRITE_DATE)
 		VALUES
-		(OBHOTEL_BOARD_RELY_SEQ.NEXTVAL, #{board_id} #{user_id},
-		#{content}, SYSDATE)
+		(OBHOTEL_BOARD_REPLY_SEQ.NEXTVAL, #{board_id}, #{user_id}, #{content}, SYSDATE)
 	</insert>
-		
+	
+	<!-- 문의 사항 댓글 보기 -->
+	<select id="queCommentsSelOne" resultType="com.ob.vo.BoardreplyVO"
+	parameterType="String">
+	  SELECT * 
+	  FROM OBHOTEL_BOARD_REPLY
+	  WHERE USER_ID = #{user_id}
+	</select>	
 
 	<!-- ******이벤트 게시판 ******** -->
 

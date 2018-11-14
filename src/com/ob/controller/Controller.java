@@ -1,6 +1,6 @@
 package com.ob.controller;
 
-import java.io.IOException;
+import java.io.IOException;  
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,10 +44,11 @@ import com.ob.command.SearchListCommand;
 import com.ob.command.SearchThemeCommand;
 import com.ob.command.Test1Command;
 import com.ob.command.Test2Command;
-import com.ob.command.queCommentsCommand;
-import com.ob.command.queCommentsViewCommand;
-import com.ob.command.queModiCommand;
-import com.ob.command.queViewComand;
+import com.ob.command.QueCommentsCommand;
+import com.ob.command.QueCommentsViewCommand;
+import com.ob.command.QueDeleteCommand;
+import com.ob.command.QueModiCommand;
+import com.ob.command.QueViewComand;
 
 
 
@@ -131,9 +132,9 @@ public class Controller extends HttpServlet {
 		} else if (type.equals("event_detail")){
 			comm = new Event_DetailCommand();
 		} else if (type.equals("queView")) {
-			comm = new queViewComand();
+			comm = new QueViewComand();
 		} else if (type.equals("queModi")) {
-			comm = new queModiCommand();
+			comm = new QueModiCommand();
 		} else if (type.equals("search")) {
 			comm = new SearchCommand();
 		} else if (type.equals("search_list")) {
@@ -154,19 +155,15 @@ public class Controller extends HttpServlet {
 			comm = new CommonCommand(type);
 		} else if (type.equals("myPageModiAct")) {
 			comm = new MypageModiActCommand();
-<<<<<<< HEAD
-		} else if (type.equals("queComments")) {
-			comm = new queCommentsCommand();
-		} else if (type.equals("queCommentsView"))
-			comm = new queCommentsViewCommand();
-		
-=======
 		} else if (type.equals("reservation")) {
 			comm =new ReservationCommand();
+		} else if (type.equals("queComments")) {
+			comm = new QueCommentsCommand();
+		} else if (type.equals("queCommentsView")) {
+			comm = new QueCommentsViewCommand();
+		} else if (type.equals("queDelete")) {
+			comm = new QueDeleteCommand();
 		}
-
-
->>>>>>> refs/remotes/origin/master
 		path = comm.exec(request, response);
 		request.getRequestDispatcher(path).forward(request, response);
 	}

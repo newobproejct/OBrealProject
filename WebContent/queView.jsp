@@ -42,10 +42,10 @@
 		var DeleteOk = confirm("정말 삭제하시겠습니까?");
 		
 		if(DeleteOk) {
-			frm.action="controller?type=quedelete&board_type=3&id=${BPVO.id}";
+			frm.action="controller?type=queDelete&board_type=3&id=${BPVO.id}";
 			frm.submit();		
 		} else {
-		alert("취소되었습니다.");c
+		alert("취소되었습니다.");
 		}
 	}
 	
@@ -56,6 +56,7 @@
 	
 	 function sendData_go(frm) {
 			frm.action="controller?type=queComments&board_type=3&id=${BPLYVO.id}";
+			frm.submit();
 	}
  
 </script>
@@ -88,7 +89,7 @@
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td>${BPVO.user_id}</td>
+								<td>${uservo.nickname}</td>
 							</tr>
 							<tr>
 								<th>전화번호</th>
@@ -107,6 +108,8 @@
 		                        <input type="button" value="수  정" onclick="modify_go(this.form)"> 
 		                        <input type="button" value="삭  제" onclick="delete_go(this.form)"> 
 		                        <input type="button" value="목  록" onclick="view_go(this.form)">
+		                        <input type="hidden" name="delete_chk" value="chk">
+	                        	<input type="hidden" name="delete_id" value="${BPVO.id}">
                         	</td>
                         	</tr>
 						</tbody>
@@ -115,28 +118,23 @@
 				<hr>
 				<%-- 댓글입력 폼 --%>
 				<form method="post">
-					<p>ID : <input type="text" name="writer"></p>
+					<p>작성자 : ${uservo.nickname }(${uservo.account })</p>
 					<p>내용 : <textarea name="content" rows="4" cols="55"></textarea>
-					<input type="button" value="댓글저장" onclick= "sendData_go(this.form)">
-					
-					<%-- <input type="hidden" name="writer" id="chk">
-					<input type="hidden" name="id" value="${BPLYVO.id}">  --%>
+					<input type="submit" value="댓글저장" onclick= "sendData_go(this.form)">
+					<input type="hidden" name="writer" id="chk"> 
 				</form>
 				
 				<hr>
 				
 				<%-- 댓글창 출력 --%>
-				<div class="comment">
-					<form>
-						<p>이름: ${BPLYVO.writer }</p>
-						<p>날짜: ${BPLYVO.write_date }</p>
-						<p>내용: ${BPLYVO.content }</p>
+					<form method="post">
+						<p>작성자: ${account }</p>
+						<p>내용: ${vo.content }</p>
 						<input type="button" value="수  정" onclick="reply_modify_go(this.form)">
 						<input type="button" value="삭  제" onclick="reply_delete_go(this.form)">
 					</form>
 				</div>
-				<hr>
-			</div>		
+				<hr>	
 		</article>
 	</section>
 	<footer>

@@ -151,6 +151,14 @@ public class DAO {
 		getSql().commit();
 		return result;
 	}
+	
+	// 문의사항 게시글 삭제
+	public static int queDel(String id) {
+		int result = getSql().delete("queDel", id);
+		getSql().commit();
+		return result;
+	}
+	
 	// 문의사항 댓글입력
 	public static int queCommentsInsert(BoardreplyVO vo) {
 		int result = getSql().insert("queCommentsInsert", vo);
