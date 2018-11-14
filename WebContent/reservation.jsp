@@ -31,7 +31,7 @@
 	function reserveOk(frm){
 		var ok = confirm("예약하시겠습니까?");
 		if(ok==true){
-			frm.action="controller?type=reservationOk&total_cost=";
+			frm.action="controller?type=reservationOk";
 			frm.submit();
 		}
 		else{
@@ -155,7 +155,7 @@
 	<tr>
 		<th>숙박료</th>
 		<td><div id="cost"></div>
-			<input type="text" id="total_cost" name="total_cost" >
+			<input type="text" id="total_cost" name="total_cost" value="0">
 		</td>
 	</tr>
 	
