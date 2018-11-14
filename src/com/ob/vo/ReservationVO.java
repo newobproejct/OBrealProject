@@ -214,7 +214,12 @@ public class ReservationVO {
 	@Override
 	public String toString() {
 		return "ReservationVO [id=" + id + ", user_id=" + user_id + ", room_id=" + room_id + ", s_date=" + s_date
-				+ ", e_date=" + e_date + ", r_date=" + r_date + ", pax=" + pax + ", review_id=" + review_id + "]";
+				+ ", e_date=" + e_date + ", r_date=" + r_date + ", pax=" + pax + ", review_id=" + review_id
+				+ ", account=" + account + ", nickname=" + nickname + ", room_name=" + room_name + ", room_type_id="
+				+ room_type_id + ", room_type=" + room_type + ", room_num=" + room_num + ", room_content="
+				+ room_content + ", room_address1=" + room_address1 + ", room_address2=" + room_address2
+				+ ", room_theme=" + room_theme + ", max_pax=" + max_pax + ", cost=" + cost + "]";
 	}
+
 	
 }
