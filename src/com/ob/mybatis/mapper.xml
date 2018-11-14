@@ -114,20 +114,20 @@
 	<!--*** checkJoin ********* -->
 	<insert id="checkJoin" parameterType="com.ob.vo.UserVO">
 		INSERT INTO OBHOTEL_USER
-		(ID, ACCOUNT, PASSWORD, NICKNAME, BIRTHDAY,ZIPCODE , ADDRESS1,
-		ADDRESS2, EMAIL,E_CONFIRM,TEL)
+		(ID, ACCOUNT, PASSWORD, NICKNAME, BIRTHDAY, ZIPCODE, ADDRESS1,
+		ADDRESS2, EMAIL, E_CONFIRM, TEL)
 		VALUES (OBHOTEL_USER_SEQ.NEXTVAL,
 		#{account}, #{password},
-		#{nickname}, #{birthday},#{zipcode}
-		,#{address1}, #{address2},
-		#{email},#{e_confirm}, #{tel})
+		#{nickname}, #{birthday}, #{zipcode}, 
+		#{address1}, #{address2},
+		#{email}, #{e_confirm}, #{tel})
 	</insert>
 
 	<!-- 로그인 후 해당 유저 예약 기록 조회 -->
 	<select id="getUserReservation" parameterType="com.ob.vo.UserVO"
 		resultType="com.ob.vo.ReservationVO">
 		SELECT RES.ID ID, SUBSTR(S_DATE,1,10) S_DATE, SUBSTR(E_DATE,1,10) E_DATE
-		       , U.ID USER_ID, ACCOUNT, NICKNAME
+		       ,U.ID USER_ID, ACCOUNT, NICKNAME
 		       ,R.ID ROOM_ID, ROOM_NAME, R.ROOM_TYPE_ID ROOM_TYPE_ID, FILENAME
 		       ,ROOM_TYPE, R.ROOM_NUM ROOM_NUM, ROOM_CONTENT
 		       ,R.ROOM_ADDRESS1 ROOM_ADDRESS1, R.ROOM_ADDRESS2 ROOM_ADDRESS2, R.ROOM_THEME ROOM_THEME
