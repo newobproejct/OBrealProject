@@ -137,7 +137,7 @@
 		        OBHOTEL_ROOM R,
 		        OBHOTEL_ROOM_TYPE RT,
 		        OBHOTEL_ROOM_FILE RF
-		  WHERE USER_ID = #{user_id}
+		  WHERE USER_ID = #{id}
 		    AND RES.USER_ID = U.ID
 		    AND RES.ROOM_ID = R.ID
 		    AND R.ROOM_TYPE_ID = RT.ID

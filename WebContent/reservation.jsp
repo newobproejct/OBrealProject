@@ -39,18 +39,36 @@
 		frm.action="controller?type=reservationOk";
 		frm.submit();
 	}
+	function toDate(dateStr) {
+		var parts = dateStr.split("-")
+	  	return new Date(parts[2], parts[1]-1, parts[0])
+	}
 	function setVal(val){
 		alert(val);
 		var sd = val;
  		var temp ='<span>체크아웃</span>';
-	   	temp += '<select id="e_date" >';
-		temp += '<c:forEach var="ed" items="${enableDates}">';
-		temp += '<c:if test="${ed>=sd}">';
-		temp += '<option>${ed }</option>';
-		temp += '</c:if>';
-		temp += '</c:forEach>';
+ 		var nsd = new Date();
+ 		var ned = new Date();
+	   	temp += '<select id="e_date">';
+	   	
+		//temp += '<c:forEach var="ed" items="${enableDates}">';
+		//temp += '<c:if test="${ed>=sd}">';
+		//temp += '<option>${ed }1</option>';
+		//temp += '</c:if>';
+		//temp += '</c:forEach>';
+		<c:forEach var = "ed" items = "${enableDates}">
+				var date = "${ed}";
+				nsd = toDate(sd);
+				ned = toDate(date);
+				console.log("nsd : " + nsd + "ned : " + ned);
+				if(nsd<=ned){
+					temp += '<option>${ed}</option>';
+				}		
+		</c:forEach>
+		
 		temp += '</select>'; 
 		alert(temp);
+		console.log(temp);
 		document.getElementById("checkout").innerHTML=temp;
 	}
 </script>
