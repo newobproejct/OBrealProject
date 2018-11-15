@@ -272,14 +272,15 @@
 		(OBHOTEL_BOARD_REPLY_SEQ.NEXTVAL, #{board_id}, #{user_id}, #{content}, SYSDATE)
 	</insert>
 	
-	<!-- 문의 사항 댓글 보기 -->
-	<select id="queCommentsSelOne" resultType="com.ob.vo.BoardreplyVO"
-	parameterType="String">
-	  SELECT * 
-	  FROM OBHOTEL_BOARD_REPLY
-	  WHERE USER_ID = #{user_id}
-	</select>	
-
+	<!-- 문의사항 댓글 조회 -->
+	<select id ="getqueCommentsList" resultType="com.ob.vo.BoardreplyVO"
+		parameterType="String">
+		SELECT * 
+		  FROM OBHOTEL_BOARD_REPLY
+		  WHERE USER_ID = #{user_id}	
+	</select>
+	
+	
 	<!-- ******이벤트 게시판 ******** -->
 
 	<!-- 두테이블 아웃 조인 로우럼 셀렉문 -->

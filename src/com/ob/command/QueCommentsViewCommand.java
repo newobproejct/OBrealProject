@@ -1,6 +1,6 @@
 package com.ob.command;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ public class QueCommentsViewCommand implements Command {
 		
 		String id = request.getParameter("id");
 		
-		BoardreplyVO vo = DAO.queCommentsSelOne(id);
+		BoardreplyVO vo = (BoardreplyVO) DAO.getqueCommentsList(id);
 		
 		request.getSession().setAttribute("BPLYVO", vo);
 		

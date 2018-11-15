@@ -1,6 +1,6 @@
 package com.ob.dao;
 
-import java.util.List;  
+import java.util.List;   
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -167,11 +167,10 @@ public class DAO {
 	}
 	
 	// 문의사항 댓글보기
-	public static BoardreplyVO queCommentsSelOne(String id) {
-		BoardreplyVO vo = getSql().selectOne("queCommentsSelOne", id);
-		return vo;
+	public static List<BoardreplyVO> getqueCommentsList(String id){
+		return getSql().selectList("getqueCommentsList", id);
 	}
-
+	
 	// boardVOplus 모든 이벤트 데이터값 불러오기
 	public static List<BoardplusVO> getEventALLList(Map<String, Integer> map) {
 		return getSql().selectList("getEventALLcol", map);
@@ -248,5 +247,7 @@ public class DAO {
 	public static int insertReservation(ReservationVO resvo) {
 		return getSql().insert("insertReservation", resvo);
 	}
+
+	
  	
 }

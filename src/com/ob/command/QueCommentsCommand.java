@@ -1,6 +1,6 @@
 package com.ob.command;
 
-import java.io.IOException;   
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +36,7 @@ public class QueCommentsCommand implements Command {
 		
 		
 		
+		
 		String path = null;
 		
 		if (idx == null) {
@@ -51,8 +52,10 @@ public class QueCommentsCommand implements Command {
 			
 			DAO.queCommentsInsert(vo);
 			request.setAttribute("vo", vo);
-			
+			  
 			path = "controller?type=queView&board_type=3";
+			
+			
 		}
 		
 		return path;

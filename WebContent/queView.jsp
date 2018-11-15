@@ -127,12 +127,14 @@
 				<hr>
 				
 				<%-- 댓글창 출력 --%>
+				<c:forEach var="BoardreplyVO" items="id">
 					<form method="post">
 						<p>작성자: ${account }</p>
 						<p>내용: ${vo.content }</p>
 						<input type="button" value="수  정" onclick="reply_modify_go(this.form)">
 						<input type="button" value="삭  제" onclick="reply_delete_go(this.form)">
 					</form>
+				</c:forEach>
 				</div>
 				<hr>	
 		</article>
