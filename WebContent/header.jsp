@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%><!DOCTYPE html>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>HEADER</title>
 <link href="./css/plus.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
-	
 	.hidden{
 		display:none;
 	}
@@ -71,10 +71,16 @@
 				<li id="manage"><a href="controller?type=admin_system">관리자</a></li>
 				</c:if>
 				<c:if test="${not empty sessionScope.uservo}">
-				<li id="logout"><a href="controller?type=logout">로그아웃 </a><p id="user">(${sessionScope.uservo.getAccount()}님 반갑습니다.)</p></li>
-				<li id="myPage"><a href="controller?type=myPage">마이페이지</a></li>				
+				<li><a href="#">마이페이지</a>
+					<div id="dropdown">
+						<ul>
+							<li><a href="controller?type=myPage">내 정보변경</a></li>
+							<li><a href="controller?type=revList">내 예약(숙박)내역</a></li>
+							<li id="logout"><a href="controller?type=logout">로그아웃</a></li>
+						</ul>
+					</div>
+				</li>			
 				</c:if>
-					</ul>
 <!-- 				</li> -->
 <%-- 				<c:if test="${uservo==null }"> --%>
 <!-- 					<li id="login"><a href="controller?type=login">로그인</a></li> -->

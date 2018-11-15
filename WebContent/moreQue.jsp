@@ -2,34 +2,34 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <title>QUESTION.JSP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
-.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-}
-
-.active, .accordion:hover {
-    background-color: #ccc; 
-}
-
-.panel {
-    padding: 0 18px;
-    display: none;
-    background-color: white;
-    overflow: hidden;
-}
+	.QueList {
+		height: 150px;
+		width: 150px;
+	}
+	#btn {
+		height: 150px;
+		width: 150px;
+	}
 </style>
+<script>
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace("w3-black", "w3-red");
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace("w3-red", "w3-black");
+    }
+}
+</script>
 </head>
 <body>
 
@@ -47,42 +47,26 @@
 					<li><a href="controller?type=agree">약관 및 동의사항</a></li>
 				</ul>
 			</nav>
-		</section>
 		
-		<h2>Accordion</h2>
-
-		<button class="accordion">Section 1</button>
-		<div class="panel">
-		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		</div>
 		
-		<button class="accordion">Section 2</button>
-		<div class="panel">
-		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		</div>
-		
-		<button class="accordion">Section 3</button>
-		<div class="panel">
-		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		</div>
-		
-		<script>
-		var acc = document.getElementsByClassName("accordion");
-		var i;
-		
-		for (i = 0; i < acc.length; i++) {
-		    acc[i].addEventListener("click", function() {
-		        this.classList.toggle("active");
-		        var panel = this.nextElementSibling;
-		        if (panel.style.display === "block") {
-		            panel.style.display = "none";
-		        } else {
-		            panel.style.display = "block";
-		        }
-		    });
-		}
-		</script>
-	https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_accordion
+		<article>
+			<div class="w3-container">
+				<h2>Active Accordions</h2>
+				<p>In this example we add the w3-red class to an active accordion (when the button is clicked on and the content is opened).</p>
+				
+				<button id="onclick="myFunction('Demo1')" class="w3-button w3-block w3-black w3-left-align">Open Section 1</button>
+				<div id="Demo1" class="w3-hide w3-container">
+				    <p>Some text..</p>
+				</div>
+				
+				<button onclick="myFunction('Demo2')" class="w3-button w3-block w3-black w3-left-align">Open Section 2</button>
+				<div id="Demo2" class="w3-hide w3-container">
+				    <p>Some other text..</p>
+				</div>
+				
+				</div>
+		</article>
+	</section>
 	<!-- -----------------------------------------------------------------  ------------------------ -->
 	<footer>
 		<jsp:include page="footer.jsp"></jsp:include>

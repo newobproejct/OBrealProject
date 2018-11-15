@@ -7,7 +7,7 @@ public class UserVO {
 	int  e_confirm;
 	
 	String tel;
-
+	
 	public UserVO() {
 		super();
 	}

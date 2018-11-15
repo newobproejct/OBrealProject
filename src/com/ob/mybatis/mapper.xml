@@ -114,19 +114,34 @@
 	<!--*** checkJoin ********* -->
 	<insert id="checkJoin" parameterType="com.ob.vo.UserVO">
 		INSERT INTO OBHOTEL_USER
-		(ID, ACCOUNT, PASSWORD, NICKNAME, BIRTHDAY,ZIPCODE , ADDRESS1,
-		ADDRESS2, EMAIL,E_CONFIRM,TEL)
+		(ID, ACCOUNT, PASSWORD, NICKNAME, BIRTHDAY, ZIPCODE, ADDRESS1,
+		ADDRESS2, EMAIL, E_CONFIRM, TEL)
 		VALUES (OBHOTEL_USER_SEQ.NEXTVAL,
 		#{account}, #{password},
-		#{nickname}, #{birthday},#{zipcode}
-		,#{address1}, #{address2},
-		#{email},#{e_confirm}, #{tel})
+		#{nickname}, #{birthday}, #{zipcode}, 
+		#{address1}, #{address2},
+		#{email}, #{e_confirm}, #{tel})
 	</insert>
 
 	<!-- 로그인 후 해당 유저 예약 기록 조회 -->
-	<select id="getUserReservation" parameterType="String"
+	<select id="getUserReservation" parameterType="com.ob.vo.UserVO"
 		resultType="com.ob.vo.ReservationVO">
-		SELECT * FROM OBHOTEL_RESERVATION WHERE USER_ID=#{id}
+		SELECT RES.ID ID, SUBSTR(S_DATE,1,10) S_DATE, SUBSTR(E_DATE,1,10) E_DATE
+		       ,U.ID USER_ID, ACCOUNT, NICKNAME
+		       ,R.ID ROOM_ID, ROOM_NAME, R.ROOM_TYPE_ID ROOM_TYPE_ID, FILENAME
+		       ,ROOM_TYPE, R.ROOM_NUM ROOM_NUM, ROOM_CONTENT
+		       ,R.ROOM_ADDRESS1 ROOM_ADDRESS1, R.ROOM_ADDRESS2 ROOM_ADDRESS2, R.ROOM_THEME ROOM_THEME
+		       ,RES.PAX PAX, RT.MAX_PAX MAX_PAX, COST, REVIEW_ID
+		   FROM OBHOTEL_RESERVATION RES,
+		        OBHOTEL_USER U,
+		        OBHOTEL_ROOM R,
+		        OBHOTEL_ROOM_TYPE RT,
+		        OBHOTEL_ROOM_FILE RF
+		  WHERE USER_ID = #{id}
+		    AND RES.USER_ID = U.ID
+		    AND RES.ROOM_ID = R.ID
+		    AND R.ROOM_TYPE_ID = RT.ID
+		    AND R.ROOM_TYPE_ID = RF.ID
 	</select>
 
 	<!-- 회원 정보 변경 -->
@@ -416,7 +431,7 @@
 	<select id="getRoomTableByRid" resultType="com.ob.vo.RoomTABLEVO"
 		parameterType="String">
 		SELECT *
-		  FROM (SELECT ROWNUM R_NUM, R.ID, R.ROOM_TYPE_ID
+		  FROM (SELECT ROWNUM R_NUM, R.ID ROOM_ID, R.ROOM_TYPE_ID
 		              ,ROOM_NAME,ROOM_NUM,ROOM_CONTENT ,ROOM_ADDRESS1,ROOM_ADDRESS2
 		              ,ROOM_THEME,F.ID FILE_ID, FILENAME,ROOM_TYPE, T.ID TYPE_ID, MAX_PAX,COST
 		          FROM OBHOTEL_ROOM R
@@ -428,4 +443,9 @@
 		 WHERE R_NUM=1
 	</select>
 
+	<!-- (예약용) 예약정보 DB에 insert -->
+	<insert id="insertReservation" parameterType="com.ob.vo.ReservationVO">
+		INSERT INTO OBHOTEL_RESERVATION (ID, USER_ID, ROOM_ID, S_DATE, E_DATE, R_DATE, PAX, REVIEW_ID, TOTAL_COST)
+			VALUES (OBHOTEL_RESERVATION_SEQ.NEXTVAL, #{user_id}, #{room_id}, #{s_date}, #{e_date}, SYSDATE, #{pax}, 0, #{total_cost})
+	</insert>
 </mapper>

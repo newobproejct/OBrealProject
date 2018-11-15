@@ -4,57 +4,95 @@
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-<%				
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	Calendar cal = Calendar.getInstance();
-	
-	//이번달
-	int year = cal.get(Calendar.YEAR);
-    int mon = cal.get(Calendar.MONTH)+1;
-    int day = cal.get(Calendar.DAY_OF_MONTH);
-    System.out.println("day:" + day);
-    int startDate = day;
-    int firstday = 1;
-    int lastday = cal.getActualMaximum(Calendar.DATE);
-    
-    //다음달
-    cal.set(year, mon, day);
-	int year2 = cal.get(Calendar.YEAR);
-    int mon2 = cal.get(Calendar.MONTH)+1;
-    int day2 = cal.get(Calendar.DATE);
-    int lastday2 = cal.getActualMaximum(Calendar.DATE);
-    
-    List<String> enableDateList = (List<String>)request.getAttribute("dates");
-    System.out.println("enableDateList : " + enableDateList);
-    String nowDate="";
-%>		      
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>예약하기</title>
 <script>
+	//이번달 변수
+	var today = new Date();
+	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+	var year = today.getFullYear();
+	var mon = today.getMonth();
+	var day = today.getDate();
+	var startDate = today;
+	var startDate2 = today;
+	var firstday = new Date(today.getFullYear(), today.getMonth(), 1);
+	var lastday = new Date(today.getFullYear(), today.getMonth()+1, 0);
+	
+	var sd ="";
+</script>
+
+<script>
 	function reserveOk(frm){
-		var ok = confirm("예약하시겠습니까?")
+		var ok = confirm("예약하시겠습니까?");
 		if(ok==true){
-			location.href="controller?type=reservationOk";
+			frm.action="controller?type=reservationOk";
+			frm.submit();
 		}
 		else{
 			return;
 		}
 	}
-	$(function(){
-	})
-	function calculate(){
+	function toDate(dateStr) {
+		var parts = dateStr.split("-")
+	  	return new Date(parts[2], parts[1]-1, parts[0])
+	}
+	function dateDiff(_date1, _date2) {
+	    var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
+	    var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+	 
+	    diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1.getMonth()+1, diffDate_1.getDate());
+	    diffDate_2 = new Date(diffDate_2.getFullYear(), diffDate_2.getMonth()+1, diffDate_2.getDate());
+	 
+	    var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+	    diff = Math.ceil(diff / (1000 * 3600 * 24));
+	 
+	    return diff;
+	}
+	function setVal(val){
+		sd = val;
+ 		var temp ='<span>체크아웃</span>';
+ 		var nsd = new Date();
+ 		var ned = new Date();
+	   	temp += '<select id="e_date" onchange="setVal2(this.value)"  name="e_date">';
+		//temp += '<c:forEach var="ed" items="${enableDates}">';
+		//temp += '<c:if test="${ed>=sd}">';
+		//temp += '<option>${ed }1</option>';
+		//temp += '</c:if>';
+		//temp += '</c:forEach>';
+		<c:forEach var = "ed" items = "${enableDates}">
+			var date = "${ed}";
+			
+			console.log("sd : " + sd + "date : " + date);
+			
+			nsd = toDate(sd);
+			ned = toDate(date);
+			console.log("nsd : " + nsd + "ned : " + ned);
+			if(nsd<=ned){
+				temp += '<option>${ed}</option>';
+			}		
+		</c:forEach>
+		
+		temp += '</select>'; 
+		console.log(temp);
+		document.getElementById("checkout").innerHTML=temp;
+	}
+	function setVal2(val){
+		var diff = dateDiff(sd,val);
+		var cost = diff * ${roomTable.cost * 1000};
+		var temp2 = cost + '원';
+		document.getElementById("cost").innerHTML=temp2;
+		document.getElementById("total_cost").value=cost;
 	}
 </script>
 </head>
 <body>
-<form action="reserveOk(this.form)">
+<form method="post">
 <table>
 	<tr>
 		<td colspan="2">
@@ -75,7 +113,7 @@
 		<th>타입</th><td>${roomTable.room_type }</td>
 	</tr>
 	<tr>
-		<th>숙박가격(1일)</th><td>${roomTable.cost }(단위:천원)</td>
+		<th>숙박가격(1일)</th><td>${roomTable.cost * 1000 }원</td>
 	</tr>
 	<tr>
 		<th>최대인원</th><td>${roomTable.max_pax }명</td>
@@ -90,75 +128,39 @@
 		<th>예약가능일</th>
 		<td>
 			<font>체크인</font>
-			<select id="s_date" onchange="calculate()">  
-<%
-				//이번달
-		        for(int i=startDate; i<=lastday; i++){
-		        	nowDate = year + "-" + mon + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-		        
-		        //다음달
-		        for(int i=firstday; i<=lastday2; i++){
-		        	nowDate = year2 + "-" + mon2 + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-%>
-			</select><br>
+			<div id="checkin">
+				<select id="s_date" onchange="setVal(this.value)" name="s_date"> 
+					<c:forEach var="ed" items="${enableDates}">
+						<option>${ed }</option>
+					</c:forEach>
+				</select>
+			</div>
 			
-			<font>체크아웃</font>
+			
 			<!--
 			체크아웃 날짜는 체크인 날짜 이후여야 하고
 			체크아웃 날짜는 예약이 가능해야 하지만 아직 구현되지 않음
 			-->
-			<select id="e_date" onchange="calculate()">  
-<%
-				//이번달
-		        for(int i=startDate; i<=lastday; i++){
-		        	nowDate = year + "-" + mon + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-		        
-		        //다음달
-		        for(int i=firstday; i<=lastday2; i++){
-		        	nowDate = year2 + "-" + mon2 + "-" + i;
-		        	if(!enableDateList.contains(nowDate)){
-%>
-						<option><%=nowDate %></option>
-<%
-		     	  	};
-		        };
-%>
-			</select><br>
+			<div id="checkout">
+			</div>
 		</td>
 	</tr>
 	<tr>
 		<th>숙박인원</th>
 		<td>
-			<input type="number" name="pax" min="1" max="${roomTable.max_pax }"><br>
+			<input type="number" name="pax" min="1" max="${roomTable.max_pax }" value="1"><br>
 			(최대인원 : ${roomTable.max_pax }명)
 		</td>
 	</tr>
 	<tr>
 		<th>숙박료</th>
-		<td id="cost">
+		<td><div id="cost"></div>
+			<input type="text" id="total_cost" name="total_cost" value="0">
 		</td>
 	</tr>
 	
 	<tr>
-		<td colspan="2"><input type="submit"></td>
+		<td colspan="2"><input type="button" onclick="reserveOk(this.form)" value="예약하기"></td>
 	</tr>
 </table>
 </form>
